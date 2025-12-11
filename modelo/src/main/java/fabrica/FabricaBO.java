@@ -2,6 +2,7 @@ package fabrica;
 
 import BOs.AutoresBO;
 import BOs.CategoriasBO;
+import BOs.ClienteBO;
 import BOs.EditorialesBO;
 import BOs.LibrosBO;
 import BOs.PedidoBO;
@@ -9,6 +10,7 @@ import BOs.ProductosBO;
 import BOs.ReseniaBO;
 import DAOs.AutoresDAO;
 import DAOs.CategoriasDAO;
+import DAOs.ClienteDAO;
 import DAOs.EditorialesDAO;
 import DAOs.LibrosDAO;
 import DAOs.PedidoDAO;
@@ -18,6 +20,8 @@ import definiciones.IAutoresBO;
 import definiciones.IAutoresDAO;
 import definiciones.ICategoriasBO;
 import definiciones.ICategoriasDAO;
+import definiciones.IClienteBO;
+import definiciones.IClienteDAO;
 import definiciones.IEditorialesBO;
 import definiciones.IEditorialesDAO;
 import definiciones.ILibrosBO;
@@ -102,6 +106,15 @@ public class FabricaBO {
         IEditorialesBO editorialesBO = new EditorialesBO(editorialesDAO);
         
         return editorialesBO;
+    }
+    
+    public static IClienteBO obtenerClientesBO(){
+        
+        IClienteDAO clientesDAO = new ClienteDAO();
+        
+        IClienteBO clientesBO = new ClienteBO(clientesDAO);
+        
+        return clientesBO;
     }
     
 }

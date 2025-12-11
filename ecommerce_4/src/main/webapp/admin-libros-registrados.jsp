@@ -70,7 +70,7 @@
                 <div class="buttons">
 
                     <div class="buttons-cancel-save">
-                        <a href="menu-principal-admin">
+                        <a href="admin-menu-principal">
                             <input type="submit" value="Cancelar" class="cancel-input">
                         </a>
 

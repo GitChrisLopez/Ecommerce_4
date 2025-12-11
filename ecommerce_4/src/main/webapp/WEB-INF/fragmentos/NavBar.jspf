@@ -19,7 +19,14 @@
                 <img src="./icons/user.png" alt="user" class="user-icon"> 
                 <div class="options-user">
                     <div class="user-nombre">
-                        <p>Carlos Gutiérrez Torres</p>
+                        <%
+                            dominio.UsuarioDTO usuarioLogueado = (dominio.UsuarioDTO) session.getAttribute("usuarioLogueado");
+                            String nombre = "Usuario";
+                            if (usuarioLogueado != null && usuarioLogueado.getNombre() != null && !usuarioLogueado.getNombre().trim().isEmpty()) {
+                                nombre = usuarioLogueado.getNombre().trim();
+                            }
+                        %>
+                        <p><%= nombre %></p>
                     </div>
                     <hr class="separador"> 
 

@@ -34,4 +34,21 @@ public class UsuarioDAO {
             em.close();
         }
     }
+
+    public Usuario obtenerUsuarioPorCorreo(String correo) {
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        try {
+            TypedQuery<Usuario> query = em.createQuery(
+                    "SELECT u FROM Usuario u WHERE LOWER(u.correo) = LOWER(:correo)",
+                    Usuario.class
+            );
+            query.setParameter("correo", correo);
+
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 }

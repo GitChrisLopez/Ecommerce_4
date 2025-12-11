@@ -13,6 +13,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./styles/styles-formulario.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
+        <script src="js/perfil.js" defer></script>
     </head>
 
     <body>
@@ -44,11 +45,6 @@
                             </div>
 
                             <div class="form-individual">
-                                <label for="fecha-nacimiento">Fecha de nacimiento</label>
-                                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required>
-                            </div>
-
-                            <div class="form-individual">
                                 <label for="telefono">Teléfono</label>
                                 <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required>
                             </div>
@@ -62,7 +58,6 @@
                         <div class="form-btns">
                             <div class="edicion-btns">
                                 <button type="submit" class="guardar-btn">Guardar cambios</button>
-                                <button type="submit" class="cerrar-sesion-btn">Cerrar sesión</button>
                             </div>
                         </div>
                     </form>

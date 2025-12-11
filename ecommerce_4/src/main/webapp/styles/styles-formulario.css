@@ -157,4 +157,22 @@ form{
 
 }
 
+.mensaje-perfil {
+    position: fixed;
+    color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.mensaje-perfil.exito { 
+    background: var(--bg-color-light-purple);
+}
+
+.mensaje-perfil.error {
+    background: var(--bg-color-dark-blue);
+}
 
