@@ -88,7 +88,7 @@ public class PedidoBO implements IPedidoBO {
             if (nuevoEstado == Estado.ENTREGADO && estadoActual != Estado.ENVIADO) {
                 throw new NegocioException("Un pedido solo puede ser ENTREGADO si antes estaba ENVIADO.");
             }
-            
+
             boolean exito = pedidoDAO.actualizarPedidoo(idPedido, nuevoEstado);
 
             if (!exito) {
@@ -185,6 +185,26 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error en la capa de persistencia al obtener los pedidos filtrados.", ex);
         } catch (Exception ex) {
             throw new NegocioException("Error inesperado al obtener los pedidos filtrados.", ex);
+        }
+    }
+
+    @Override
+    public List<PedidoDTO> obtenerPedidosPorCliente(Long idCliente) throws PersistenciaException, NegocioException {
+        if (idCliente == null || idCliente <= 0) {
+            throw new NegocioException("El ID del cliente debe ser un número válido.");
+        }
+
+        try {
+            List<Pedido> pedidos = pedidoDAO.obtenerPedidosPorCliente(idCliente);
+
+            if (pedidos == null || pedidos.isEmpty()) {
+                throw new NegocioException("No se encontraron pedidos.");
+            }
+            return MapperPedido.toDtoList(pedidos);
+        } catch (PersistenciaException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new NegocioException("Error al obtener la lista de pedidos por cliente.", e);
         }
     }
 

@@ -57,4 +57,6 @@ public interface IPedidoDAO {
      * @throws PersistenciaException Si ocurre un error durante la consulta.
      */
     public List<Pedido> obtenerPedidosFiltradosPorNumero(String numeroPedido) throws PersistenciaException;
+    
+    public List<Pedido> obtenerPedidosPorCliente(Long idCliente) throws PersistenciaException;
 }

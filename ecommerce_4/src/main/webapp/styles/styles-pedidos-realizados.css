@@ -51,7 +51,7 @@ main{
     width: 90%;
 }
 
-.pedido1, .pedido2, .pedido3 {
+.pedido-item {
     background-color: white;
     border-radius: 12px;
     padding: 10px 20px;
@@ -60,16 +60,20 @@ main{
     flex-direction: row;
 }
 
-.pedido1{
-    background-color: var(--bg-color-yellow);
+.pedido-pendiente {
+    background-color: #ffff56;
 }
 
-.pedido2{
+.pedido-enviado {
     background-color: var(--bg-color-blue);
 }
 
-.pedido3{
-    background-color: var(--bg-color-green);
+.pedido-entregado {
+    background-color: #778c43; 
+}
+
+.pedido-cancelado {
+    background-color: #ff7676; 
 }
 
 .pedido-info ul {
@@ -128,7 +132,7 @@ main{
         width: 90%; 
     }
 
-    .pedido1, .pedido2, .pedido3 {
+    .pedido-item {
         flex-direction: row; 
         justify-content: space-between; 
         align-items: center;

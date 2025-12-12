@@ -19,7 +19,7 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jakarta.ws.rs.Application</param-name>
-            <param-value>config.JakartaRestConfiguration</param-value>
+            <param-value>ecommerce_4.JakartaRestConfiguration</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

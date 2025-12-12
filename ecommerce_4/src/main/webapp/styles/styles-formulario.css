@@ -116,10 +116,6 @@ form{
         border-radius: 30px;
     }
 
-    .edicion-title{
-        display: none;
-    }
-
     .edicion-form{
         display: flex;
         flex-direction: column;

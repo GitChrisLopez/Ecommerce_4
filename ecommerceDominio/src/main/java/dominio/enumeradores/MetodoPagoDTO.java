@@ -1,17 +1,6 @@
 package dominio.enumeradores;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,23 +14,16 @@ import javax.persistence.TemporalType;
  * Fecha: 15/10/2025
  */
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "metodo_pago")
-public abstract class MetodoPagoDTO implements Serializable {
+public abstract class MetodoPagoDTO {
 
     /**
      * Objeto Long que representa el Id del MetodoPago.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_metodo_pago")
     private Long id;
 
     /**
      * Objeto LocalDate que representa la fecha de realización del pago.
      */
-    @Column(name = "fecha_publicacion", nullable = false)
     private LocalDate fecha;
 
     /**

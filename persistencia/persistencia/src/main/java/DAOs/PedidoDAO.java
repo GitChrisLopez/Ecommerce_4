@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  *
  * @author norma
  */
-public class PedidoDAO implements IPedidoDAO{
+public class PedidoDAO implements IPedidoDAO {
 
     /**
      * Guarda un nuevo pedido en la base de datos.
@@ -163,5 +163,33 @@ public class PedidoDAO implements IPedidoDAO{
                 em.close();
             }
         }
+    }
+
+    @Override
+    public List<Pedido> obtenerPedidosPorCliente(Long idCliente) throws PersistenciaException {
+
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        List<Pedido> pedidos = null;
+
+        try {
+        } catch (NumberFormatException e) {
+            throw new PersistenciaException("El ID del cliente debe ser un número válido.", e);
+        }
+
+        try {
+            String jpql = "SELECT p FROM Pedido p WHERE p.cliente.id = " + idCliente;
+
+            pedidos = em.createQuery(jpql, Pedido.class)
+                    .getResultList(); 
+
+            return pedidos;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener los pedidos por cliente con ID: " + idCliente, e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+
     }
 }

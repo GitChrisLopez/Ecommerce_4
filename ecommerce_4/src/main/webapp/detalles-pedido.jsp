@@ -13,6 +13,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./styles/styles-detalles-pedido.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
+        <script src="js/pedido.js" defer></script>
     </head>
 
     <body>
@@ -25,30 +26,17 @@
                 <div class="c2">
                     <div class="pedido-container">
                         <h1 class="pedido-title">Detalles del pedido</h1>
-                        <div class="general-container">
-                            <div class="libro-container">
-                                <img src="./imgs/morir-en-la-arena.png" alt="Morir en la arena">
+                        <div class="info-pedido-general">
+                            <div class="info-pedido">
+                                
                             </div>
-
-                            <div class="info-pedido-general">
-
-                                <div class="info-libro">
-                                    <h3>Morir en la arena (Andanzas)</h3>
-                                    <p>Leonardo Padura</p>
-                                </div>
-
-                                <div class="info-pedido">
-                                    <p><span>Número de pedido:</span> 82305628</p>
-                                    <p><span>Fecha del pedido:</span> 22/10/2025</p>
-                                    <p><span>Estado:</span> Enviado</p>
-                                    <p><span>Método de pago:</span> Transferencia</p>
-                                    <p><span>Total del pedido:</span> $350.00 MXN</p>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="productos-container">
+                            
                         </div>
                         
                         <div class="pedido-btn">
-                            <a href="./pedido-realizado-exitosamente.jsp" class="ver-pedidos-btn">Volver</a>
+                            <a href="./pedidos-realizados.jsp" class="ver-pedidos-btn">Volver</a>
                         </div>
                     </div>
                 </div>

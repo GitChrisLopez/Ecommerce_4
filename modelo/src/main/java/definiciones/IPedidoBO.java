@@ -58,4 +58,5 @@ public interface IPedidoBO {
      */
     public List<PedidoDTO> obtenerPedidosFiltradosPorNumero(String busqueda) throws PersistenciaException, NegocioException;
     
+    public List<PedidoDTO> obtenerPedidosPorCliente(Long idCliente) throws PersistenciaException, NegocioException;
 }
