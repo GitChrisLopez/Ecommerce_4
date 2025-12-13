@@ -70,7 +70,7 @@ public class PedidosResource {
         } catch (PersistenciaException ex) {
 
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        } catch (Exception ex) {;
+        } catch (Exception ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }

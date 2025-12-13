@@ -3,6 +3,7 @@ package ecommerce_4;
 
 import api.ClientesResource;
 import api.PedidosResource;
+import api.ProductosResource;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class JakartaRestConfiguration extends Application {
         final Set<Class<?>> classes = new HashSet<>();
         classes.add(ClientesResource.class);
         classes.add(PedidosResource.class);
+        classes.add(ProductosResource.class);
         return classes;
     }
     

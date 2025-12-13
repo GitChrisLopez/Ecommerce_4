@@ -13,7 +13,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./styles/styles-formulario.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
-        <script src="js/perfil.js" defer></script>
+        <script src="js/perfil.js"></script>
     </head>
 
     <body>

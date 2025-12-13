@@ -14,6 +14,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-catalogo.css">
+        <script src="./js/catalogo.js"></script>
     </head>
 
     <body>
@@ -37,69 +38,35 @@
                                     </a>
                                 </div>
                                 <div class="search-box">
-                                    <input type="text" placeholder="Buscar por libro o autor">
+                                    <input type="text" name="nombreLibro" placeholder="Buscar por libro">
                                 </div>
                             </div>
 
                             <input type="submit" value="Aplicar filtros" class="btn-aplicar-filtros">
 
-                            <div class="filtros">
+                            <div class="filtros filtro-categoria">
                                 <h2>Categoría</h2>
-                                <label><input type="checkbox" checked> Thriller</label>
-                                <label><input type="checkbox" checked> Terror</label>
-                                <label><input type="checkbox" checked> Drama</label>
-                                <label><input type="checkbox"> Ciencia ficción</label>
-                                <label><input type="checkbox"> Biografía</label>
+                                
                             </div>
 
-                            <div class="filtros">
+                            <div class="filtros filtro-formato">
                                 <h2>Formato</h2>
-                                <label><input type="checkbox" checked> Tapa dura</label>
-                                <label><input type="checkbox" checked> Tapa blanda</label>
-                                <label><input type="checkbox"> Bolsillo</label>
-                                <label><input type="checkbox"> E-Book</label>
+                                
                             </div>
 
                             <div class="filtros">
                                 <h2>Precio</h2>
-                                <p>Mínimo: $100</p>
-                                <input type="range" min="100" max="800" value="100">
-                                <p>Máximo: $800</p>
-                                <input type="range" min="100" max="800" value="800">
+                                <p>Mínimo: $<span id="precioMinValor">0</span></p>
+                                <input type="range" name="precioMinimo" min="0" max="1000" value="0" id="precioMin">
+                                <p>Máximo: $<span id="precioMaxValor">1000</span></p>
+                                <input type="range" name="precioMaximo" min="0" max="1000" value="1000" id="precioMax">
                             </div>
 
                         </form>
 
                         <div class="area-total-container">
                             <div class="libros-container">
-
-                                <button class="libro">
-                                    <a href="./resenia-del-producto.jsp">
-                                        <img src="./imgs/morir-en-la-arena.png" alt="Morir en la arena">
-                                        <h3>Morir en la arena</h3>
-                                        <p>Leonardo Padura</p>
-                                        <p class="precio">$250.00</p>
-                                    </a>
-                                </button>
-
-                                <button class="libro">
-                                    <a href="./resenia-del-producto.jsp">
-                                        <img src="./imgs/la-novela-de-mi-vida.png" alt="La novela de mi vida (Andanzas)">
-                                        <h3>La novela de mi vida (Andanzas)</h3>
-                                        <p>Leonardo Padura</p>
-                                        <p class="precio">$300.00</p>
-                                    </a>
-                                </button>
-
-                                <button class="libro">
-                                    <a href="./resenia-del-producto.jsp">
-                                        <img src="./imgs/el-ultimo-secreto.png" alt="El Último Secreto">
-                                        <h3>El Último Secreto</h3>
-                                        <p>Dan Brown</p>
-                                        <p class="precio">$310.00</p>
-                                    </a>
-                                </button>
-
+                                
                             </div>
                         </div>
                     </div> 

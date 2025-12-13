@@ -13,7 +13,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./styles/styles-detalles-pedido.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
-        <script src="js/pedido.js" defer></script>
+        <script src="js/pedido.js"></script>
     </head>
 
     <body>
