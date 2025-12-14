@@ -16,10 +16,9 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Romo López Manuel
- * ID: 00000253080
+ * @author Romo López Manuel ID: 00000253080
  */
-@WebServlet(name = "EditarCategoriasServlet", urlPatterns = {"/admin-editar-categorias"})
+@WebServlet(name = "EditarCategoriasServlet", urlPatterns = {"/admin-editar-categoria"})
 public class EditarCategoriasServlet extends HttpServlet {
 
     private ICategoriasBO categoriasBO;
@@ -70,20 +69,7 @@ public class EditarCategoriasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        
         
         String idCategoriaString = request.getParameter("id");
         Long idCategoriaUrl = null;
@@ -140,6 +126,21 @@ public class EditarCategoriasServlet extends HttpServlet {
         request.setAttribute("categoriaEditar", categoriaEditar);
         
         request.getRequestDispatcher("admin-edicion-categoria.jsp").forward(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        
     }
 
     /**

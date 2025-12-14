@@ -114,7 +114,7 @@ public class Libro {
         this.id = id;
         this.titulo = titulo;
         this.sinopsis = sinopsis;
-        this.categorias = categorias;
+        this.categorias = categoria;
         this.autor = autor;
         this.editorial = editorial;
         this.fechaPublicacion = fechaPublicacion;
@@ -182,7 +182,7 @@ public class Libro {
      * @param categoria Objeto List<Categoria> que representa la categoría del Libro.
      */
     public void setCategoria(List<Categoria> categoria) {
-        this.categorias = categorias;
+        this.categorias = categoria;
     }
 
     /**

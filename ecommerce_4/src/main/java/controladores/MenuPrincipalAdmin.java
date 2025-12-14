@@ -100,6 +100,9 @@ public class MenuPrincipalAdmin extends HttpServlet {
         }
         request.setAttribute("mapaFormatos", mapaFormatos);
         
+        // Se obtiene el nombre ingresado.
+        String tituloAutorIngresado = request.getParameter("titulo-autor-buscado");  
+        
         // Se obtienen las categorías seleccionadas.
         String[] categoriasSeleccionadas = request.getParameterValues("categorias"); 
         
@@ -144,6 +147,7 @@ public class MenuPrincipalAdmin extends HttpServlet {
             }
 
             List<ProductoDTO> listaProductos = productosBO.consultarProductosConFiltros(
+                    tituloAutorIngresado,
                     filtrosCategoria, 
                     filtrosFormato, 
                     precioMinimo, 

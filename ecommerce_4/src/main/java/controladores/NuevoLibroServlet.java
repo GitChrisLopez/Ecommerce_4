@@ -17,9 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -87,7 +85,7 @@ public class NuevoLibroServlet extends HttpServlet {
 
         // Se revisa la sesión para buscar si hay un libro pendiente y/o un error.
         HttpSession session = request.getSession();
-        LibroDTO libroPendiente = (LibroDTO) session.getAttribute("libroPendienteAgregar"); // Cambiamos la variable de sesión
+        LibroDTO libroPendiente = (LibroDTO) session.getAttribute("libroPendienteAgregar");
         String errorSesion = (String) session.getAttribute("errorSesion");
 
         // Se determina si hay un libro pendiente de actualizar en la sesión.

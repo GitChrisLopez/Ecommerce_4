@@ -17,7 +17,7 @@ body{
 
 main{
     display: flex;
-    background-color: white;
+    background-color: var(--lighter-grey);
     height: auto;
     min-height: 100vh;
 }
@@ -44,6 +44,18 @@ input{
     display: flex;
     position: relative;
     width: 100%;
+}
+
+.form-search{
+    width: 100%;
+    display: flex;
+    
+}
+
+.search-bar button{
+    background: none;
+    border:none;
+    padding:0;
 }
 
 .search-bar input{
@@ -88,7 +100,6 @@ input{
 
 
 .container-list label{
-    cursor: pointer;
     display: flex;
     flex-direction: row;
     background-color: var(--color-registered-container);
@@ -119,7 +130,6 @@ input{
 
 }
 
-
 .container-list img{
 
     width: 40px;
@@ -133,6 +143,12 @@ input{
 
 }
 
+.button-edition{
+    background: none;
+    border: none;
+    padding: 0;
+}
+
 .buttons{
     display: flex;
     flex-direction: row;
@@ -142,6 +158,7 @@ input{
     padding-right: 10%;
     padding-top:5%;
     background-color: white;
+    border-radius: 20px;
 }
 
 .buttons input{
@@ -150,6 +167,7 @@ input{
     font-weight: 500;
     border-radius: 10px;
     border: 1px solid black;
+    margin: 10px;
 }
 
 .button-add{
@@ -324,6 +342,10 @@ nav > a .home {
         padding: 0 1%;
     }
 
+    .buttons{
+        padding-right: 0;
+    }
+    
     .buttons input{
         width: 200px;
         border-radius: 20px;

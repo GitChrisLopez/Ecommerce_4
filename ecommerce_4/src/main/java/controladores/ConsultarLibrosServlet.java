@@ -3,7 +3,6 @@ package controladores;
 
 import definiciones.ILibrosBO;
 import dominio.LibroDTO;
-import excepciones.NegocioException;
 import fabrica.FabricaBO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,24 +73,40 @@ public class ConsultarLibrosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Se obtiene el título de los libros buscados, si los hay.
+        String tituloLibroBuscado = request.getParameter("titulo-buscado");
+
+        // Se crea una lista vacía de dto para guardar los libros recuperados.
         List<LibroDTO> listaLibros = new LinkedList<>(); 
         
-        try {
-            listaLibros = librosBO.consultarLibros();
+        // Se consultan los libros coincidentes con el título ingresado si se ingresó.
+        if(tituloLibroBuscado != null && !tituloLibroBuscado.isBlank()){
+            try {
+                
+                listaLibros = librosBO.consultarLibros(tituloLibroBuscado);
+                
+            } catch (Exception ex) {
+                
+                request.setAttribute("mensajeError", "Error al cargar los libros con el título ingresado.");
+            }
+        } else{
             
-        } catch (NegocioException ex) {
+            try {
+                listaLibros = librosBO.consultarLibros();
 
-            request.setAttribute("mensajeError", "Error al cargar los libros registrados. ");
-            
-        } catch (Exception ex) {
+            } catch (Exception ex) {
 
-            request.setAttribute("mensajeError", "Ocurrió un error inesperado al cargar los libros.");
+                request.setAttribute("mensajeError", "Error al cargar los libros registrados.");
+
+            }
+        
         }
 
         request.setAttribute("listaLibros", listaLibros);
+        request.setAttribute("tituloBuscado", tituloLibroBuscado);
 
         request.getRequestDispatcher("admin-libros-registrados.jsp").forward(request, response);
-        
+
         
     }
 

@@ -1,59 +1,64 @@
-<%-- 
-Document   : comunidad
-Created on : 19 nov 2025, 4:10:47 p.m.
-Author     : chris
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html>
-
     <head>
         <title>Editar Autor</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
-        <link rel="stylesheet" type="text/css" href="./styles/styles-admin-agregar.css">
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css" />
+        <link rel="stylesheet" type="text/css" href="./styles/styles-admin-agregar.css"/>
     </head>
 
     <body>
-        <main>
+        <div class="body-container">
             <div class="c1">
-                <%@ include file ="/WEB-INF/fragmentos/AdminNavBar.jspf" %>
+                <%@ include file="/WEB-INF/fragmentos/AdminNavBar.jspf" %>
             </div>
 
-            <div class="container-add-edition">
+            <main>
+                <div class="general-container">
+                    <c:if test="${not empty mensajeError}">
+                        <div class="error-alert">
+                            <c:out value="${mensajeError}" />
+                        </div>
+                    </c:if>
+                    <div class="container-add-edition">
 
-                <div class="title-container">
-                    <h1>Editar autor</h1>
+                        <div class="title-container">
+                            <h1>Editar autor</h1>
+                        </div>
+
+                        <form action="admin-actualizar-autor" class="form-add-edition" id="form-add-edition" method="POST">
+
+                            <input type="hidden" value="${autorEditar.id}" name="id">
+                            
+                            <div>
+                                <label>Nombre: </label>
+                                <input class="input-form-add-edition" type="text" name="nombre" value="${autorEditar.nombre}" required />
+                            </div>
+                            
+                            <div>
+                                <label>Apellido paterno: </label>
+                                <input class="input-form-add-edition" type="text" name="apellido-paterno" value="${autorEditar.apellidoPaterno}" required />
+                            </div>
+                            
+                            <div>
+                                <label>Apellido materno: </label>
+                                <input class="input-form-add-edition" type="text" name="apellido-materno" value="${autorEditar.apellidoMaterno}" />
+                            </div>
+
+                            <div class="buttons-cancel-add-edition">
+                                <a href="admin-autores-registrados">
+                                    <input type="button" value="Cancelar" class="cancel-input" />
+                                </a>
+                                <input type="submit" value="Guardar" class="add-edition-input add-input" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <form class="form-add-edition" id="form-add-edition">
-
-                    <div class="name-container">
-                        <label>Nombre:</label>
-                        <input type="text" value="Leonardo" maxlength="50" required>
-                    </div>
-
-                    <div class="last-name-1-container">
-                        <label>Apellido paterno:</label>
-                        <input type="text" value="Padura" maxlength="50" required>
-                    </div>
-
-                    <div class="last-name-2-container">
-                        <label>Apellido materno:</label>
-                        <input type="text" value="Fuentes" maxlength="50">
-                    </div>
-
-                </form>
-
-                <div class="buttons-cancel-add-edition">
-                    <input type="button" value="Cancelar" class="cancel-input" form="form-add-edition">
-                    <input type="submit" value="Guardar" class="add-edition-input edition-input" form="form-add-edition">
-                </div>
-            </div>
-
-        </main>
+            </main>
+        </div>
     </body>
-
 </html>
+

@@ -27,4 +27,21 @@
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>controladores.filtros.AdminFiltro</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>MensajeEliminacionProducto</filter-name>
+        <filter-class>controladores.filtros.MensajeEliminacionProducto</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MensajeEliminacionProducto</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

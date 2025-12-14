@@ -46,11 +46,21 @@ public interface IProductosDAO {
      * Permite obtener la lista de objetos Producto alamcenados en la base de
      * datos. Dados los filtros de los parámetros.
      *
+     * @param tituloAutor Objeto String que representa el titulo del libro, o del autor, del producto buscado, o parte de él.
+     * @param categorias Objeto {@literal List<CategoriaDTO>} que contiene las categorías de los libros de los productos
+     * a consultar.
+     * @param formatos Objeto {@literal List<FormatoDTO>} que contiene los formatos de los productos
+     * a consultar.
+     * @param precioMinimo Objeto Double que representa el precio mínimo de los productos 
+     * a consultar.
+     * @param precioMaximo Objeto Double que representa el precio maximo de los productos 
+     * a consultar.
      * @return Objeto {@literal List<Producto>} que contiene la lista de ojbetos
      * Producto almacenados, que cumplen con los filtros de los parámetros.
      * @throws PersistenciaException Se lanza si ocurre un error en la consulta.
      */
     public abstract List<Producto> consultarProductosConFiltros(
+            String tituloAutor,
             List<Categoria> categorias,
             List<Formato> formatos,
             Double precioMinimo,

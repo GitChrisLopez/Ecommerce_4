@@ -153,6 +153,7 @@ public class ProductosBO implements IProductosBO{
      * Implementación del método consultarProductosConFiltros() de la interfaz {@link IProductosBO},
      * permite obtener la lista de Productos registrados, dados los filtros de los parámetros.
      * 
+     * @param tituloAutor Objeto String que representa el titulo del libro, o del autor, del producto buscado, o parte de él.
      * @param categorias Objeto {@literal List<CategoriaDTO>} que contiene las categorías de los libros de los productos
      * a consultar.
      * @param formatos Objeto {@literal List<FormatoDTO>} que contiene los formatos de los productos
@@ -166,6 +167,7 @@ public class ProductosBO implements IProductosBO{
      */
     @Override
     public List<ProductoDTO> consultarProductosConFiltros(
+            String tituloAutor,
             List<CategoriaDTO> categorias, 
             List<FormatoDTO> formatos, 
             Double precioMinimo, 
@@ -175,6 +177,7 @@ public class ProductosBO implements IProductosBO{
         try {
             List<ProductoDTO> listaProductosConsultados = MapperProducto.toDtoList(
                     productosDAO.consultarProductosConFiltros( 
+                            tituloAutor,
                             MapperCategoria.toEntityList(categorias),
                             MapperFormato.toEntityList(formatos),
                             precioMinimo, 

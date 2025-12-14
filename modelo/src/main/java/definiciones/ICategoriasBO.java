@@ -35,7 +35,7 @@ public interface ICategoriasBO {
     /**
      * Permite obtener los datos de una categoría a partir de su Id.
      * 
-     * @param idProducto Dato Long que representa el Id de la categoría a consultar.
+     * @param idCategoria Dato Long que representa el Id de la categoría a consultar.
      * @return Objeto CategoriaDTO que contiene los datos de la categoría consultada.
      * @throws NegocioException Se lanza si se obtiene una excepción al consultar la categoría, o si 
      * el Id del parámetro es nulo.
@@ -51,7 +51,6 @@ public interface ICategoriasBO {
      * del parámetro es nulo.
      */
     public abstract List<CategoriaDTO> consultarCategorias(String nombre) throws NegocioException;
-    
     
     /**
      * Permite obtener la lista de categorías registradas.

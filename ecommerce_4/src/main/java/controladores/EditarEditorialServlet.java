@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package controladores;
 
 import definiciones.IEditorialesBO;
@@ -19,8 +16,7 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Romo López Manuel
- * ID: 00000253080
+ * @author Romo López Manuel ID: 00000253080
  */
 @WebServlet(name = "EditarEditorialServlet", urlPatterns = {"/admin-editar-editorial"})
 public class EditarEditorialServlet extends HttpServlet {

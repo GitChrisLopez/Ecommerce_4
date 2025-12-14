@@ -15,7 +15,7 @@ body{
 
 main{
     display: flex;
-    background-color: white;
+    background-color: var(--lighter-grey);
     height: auto;
     min-height: 100vh;
 }
@@ -27,7 +27,6 @@ main{
     align-items: center;
     padding-top: 50px;
     margin-top: 80px;
-    margin-left: 100px;
 }
 
 .resenias-container {
@@ -41,6 +40,7 @@ main{
     border-radius: 30px;
     padding-bottom: 20px;
     margin-right: auto;
+    margin-left: 300px;
 }
 
 .historial-resenias-title {

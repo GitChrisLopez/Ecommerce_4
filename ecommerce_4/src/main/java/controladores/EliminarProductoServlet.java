@@ -89,11 +89,11 @@ public class EliminarProductoServlet extends HttpServlet {
                 productosBO.eliminarProducto(id);
             }
 
-            response.sendRedirect("menu-principal-admin");
+            response.sendRedirect("admin-menu-principal");
 
         } catch (Exception e) {
-            request.getSession().setAttribute("errorSesion", "No se pudo eliminar el producto.");
-            response.sendRedirect("edicion-producto?id=" + request.getParameter("id"));
+            request.getSession().setAttribute("mensajeError", "No se pudo eliminar el producto.");
+            response.sendRedirect("admin-edicion-producto?id=" + request.getParameter("id"));
         }
 
     }

@@ -32,7 +32,7 @@
                                     </a>
                                 </div>
                                 <div class="search-box">
-                                    <input type="text" name="busqueda" placeholder="Buscar por Libro o Autor" value="${param.busqueda}">
+                                    <input type="text" name="titulo-autor-buscado" placeholder="Buscar por Libro o Autor" value="${param.busqueda}">
                                 </div>
                             </div>
 

@@ -93,7 +93,7 @@
                                 <input type="submit" value="Eliminar Producto" class="delete-button-input" 
                                        formaction="admin-eliminar-producto" formenctype="application/x-www-form-urlencoded" formnovalidate>
 
-                                <a class="cancel-a" href="menu-principal-admin">
+                                <a class="cancel-a" href="admin-menu-principal">
                                     <input type="button" value="Cancelar" class="cancel-input" />
                                 </a>
 

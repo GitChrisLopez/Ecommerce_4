@@ -1,11 +1,7 @@
-<%-- 
-Document   : comunidad
-Created on : 19 nov 2025, 4:10:47 p.m.
-Author     : chris
---%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 
 <html>
@@ -29,66 +25,69 @@ Author     : chris
                     <h1>Autores registrados</h1>
 
                     <div class="search-bar">
-                        <input type="search" placeholder="Buscar" id="input-search">
-                        <label for="input-search">
-                            <img src="./icons/lupa.png">    
-                        </label>
+    
+                        <form class="form-search" action="admin-autores-registrados" method="GET">
+
+                            <input type="search" 
+                                   placeholder="Buscar" 
+                                   id="input-search" 
+                                   name="nombre-buscado">
+                            
+                            <button type="submit" class="btn-lupa">
+                                <img src="./icons/lupa.png" alt="Buscar">    
+                            </button>
+
+                        </form>
                     </div>
 
                 </div>
 
-                <form action="edicion-libro.jsp" class="container-list" id="form">
+                <div class="container-list">
 
+                    <c:if test="${empty listaAutores}">
+                        <c:choose>
+        
+                            <c:when test="${not empty nombreBuscado}">
+                                <p>
+                                    No se encontraron resultados para "<c:out value="${nombreBuscado}"/>".
+                                </p>
+                            </c:when>
 
-                    <input type = "radio" id="leonardo-padura" name="autor" required>
-                    <label for="leonardo-padura">
-                        <p>Leonardo Padura Fuentes</p>
-                        <a href="admin-edicion-autor.jsp">
-                            <img src="icons/edition.png"> 
-                        </a>
-                    </label>
+                            <c:otherwise>
+                                <p>No hay autores registrados.</p>
+                            </c:otherwise>
 
+                        </c:choose>
+                    </c:if>
 
-                    <input type = "radio" id="dan-brown" name="autor">
-                    <label for="dan-brown">
-                        <p>Dan Brown</p>
-                        <a href="admin-edicion-autor.jsp">
-                            <img src="icons/edition.png">          
-                        </a>
-                    </label>
+                    <c:forEach var="autor" items="${listaAutores}" varStatus="contador">
 
-                    <input type = "radio" id="george-orwell" name="autor">        
-                    <label for="penguinrandom">
-                        <p>George Orwell</p>
-                        <a href="admin-edicion-autor.jsp">
-                            <img src="icons/edition.png">       
-                        </a>
-                    </label>
+                        <label for="autor-${contador.index}">
 
-                    <input type = "radio" id="antoine-exupery" name="autor">
-                    <label for="antoine-exupery">
-                        <p>Antoine de Saint-Exupary</p>
-                        <a href="admin-edicion-autor.jsp">
-                            <img src="icons/edition.png">           
-                        </a>
-                    </label>
+                            <p>
+                                <c:out value="${autor.nombre}" /> <c:out value="${autor.apellidoPaterno}" /> <c:out value="${autor.apellidoMaterno}" />
+                            </p>
 
-                </form>
+                            <a href="admin-editar-autor?id=${autor.id}" class="button-edition">
+                                <img src="icons/edition.png" alt="Editar">
+                            </a>
+
+                        </label>
+
+                    </c:forEach>
+
+                </div>
 
                 <div class="buttons">
 
-                    <div class="button-add">
-                        <a href="admin-agregar-autor.jsp">
+                    <div class="buttons-cancel-save">
+                        <a href="admin-menu-principal">
+                            <input type="submit" value="Volver" class="cancel-input">
+                        </a>
+
+                        <a href="admin-nuevo-autor">
                             <input type="submit" value="Agregar" class="add-input">
                         </a>
-
-                    </div>
-
-                    <div class="buttons-cancel-save">
-                        <a href="edicion-libro.jsp">
-                            <input type="submit" value="Cancelar" class="cancel-input">
-                        </a>
-                        <input type="submit" value="Guardar" class="save-input" form="form">
                     </div>
                 </div>
 

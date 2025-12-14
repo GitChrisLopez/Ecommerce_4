@@ -12,7 +12,6 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author chris
  */
-@WebFilter(filterName = "AdminFiltro", urlPatterns = {"/*"})
+
 public class AdminFiltro implements Filter {
 
     @Override

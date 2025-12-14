@@ -12,8 +12,8 @@
     <head>
         <title>Libros Destacados</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="./styles/styles-catalogo-menu-administrador.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
+        <link rel="stylesheet" type="text/css" href="./styles/styles-pedidos-realizados.css">
     </head>
 
     <body>

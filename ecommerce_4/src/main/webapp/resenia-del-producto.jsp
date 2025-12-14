@@ -92,7 +92,7 @@
                                 <div class="resenia-usuario">
                                     <img src="./icons/user.png">
                                     <div class="nombre-calificacion-usuario">
-                                        <span>Carlos Gutiérrez (Tú)</span>
+                                        <span>Tú</span>
                                         <div class="calificacion">
                                             <p>3</p>
                                             <div class="estrella"></div>

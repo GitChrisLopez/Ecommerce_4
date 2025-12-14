@@ -1,8 +1,4 @@
-<%-- 
-Document   : comunidad
-Created on : 19 nov 2025, 4:10:47 p.m.
-Author     : chris
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%> 
@@ -29,70 +25,69 @@ Author     : chris
                     <h1>Categorías registradas</h1>
 
                     <div class="search-bar">
-                        <input type="search" placeholder="Buscar" id="input-search">
-                        <label for="input-search">
-                            <img src="./icons/lupa.png">    
-                        </label>
+    
+                        <form class="form-search" action="admin-categorias-registradas" method="GET">
+
+                            <input type="search" 
+                                   placeholder="Buscar" 
+                                   id="input-search" 
+                                   name="nombre-buscado">
+                            
+                            <button type="submit" class="btn-lupa">
+                                <img src="./icons/lupa.png" alt="Buscar">    
+                            </button>
+
+                        </form>
                     </div>
 
                 </div>
 
-                <form action="edicion-libro.jsp" class="container-list" id="form">
+                <div class="container-list">
 
-                    <input type="radio" id="thriller" name="registered" required>
-                    <label for="thriller">
-                        <p>Thriller</p>
-                        <a href="admin-edicion-categoria.jsp">
-                            <img src="icons/edition.png"> 
-                        </a>
-                    </label>
+                    <c:if test="${empty listaCategorias}">
+                        <c:choose>
+        
+                            <c:when test="${not empty nombreBuscado}">
+                                <p>
+                                    No se encontraron resultados para "<c:out value="${nombreBuscado}"/>".
+                                </p>
+                            </c:when>
 
-                    <input type="radio" id="terror" name="registered">
-                    <label for="terror">
-                        <p>Terror</p>
-                        <a href="admin-edicion-categoria.jsp">
-                            <img src="icons/edition.png">          
-                        </a>
-                    </label>
+                            <c:otherwise>
+                                <p>No hay categorías registradas.</p>
+                            </c:otherwise>
 
-                    <input type="radio" id="drama" name="registered">        
-                    <label for="drama">
-                        <p>Drama</p>
-                        <a href="admin-edicion-categoria.jsp">
-                            <img src="icons/edition.png">       
-                        </a>
-                    </label>
+                        </c:choose>
+                    </c:if>
 
-                    <input type="radio" id="ciencia-ficcion" name="registered">
-                    <label for="ciencia-ficcion">
-                        <p>Ciencia ficción</p>
-                        <a href="admin-edicion-categoria.jsp">
-                            <img src="icons/edition.png">           
-                        </a>
-                    </label>
+                    <c:forEach var="categoria" items="${listaCategorias}" varStatus="contador">
 
-                    <input type="radio" id="biografia" name="registered">
-                    <label for="biografia">
-                        <p>Biografía</p>
-                        <a href="admin-edicion-categoria.jsp">
-                            <img src="icons/edition.png">            
-                        </a>
-                    </label>
-                </form>
+                        <label for="categoria-${contador.index}">
+
+                            <p>
+                                <c:out value="${categoria.nombre}" />
+                            </p>
+
+                            <a href="admin-editar-categoria?id=${categoria.id}" class="button-edition">
+                                <img src="icons/edition.png" alt="Editar">
+                            </a>
+
+                        </label>
+
+                    </c:forEach>
+
+                </div>
 
                 <div class="buttons">
 
-                    <div class="button-add">
-                        <a href="admin-agregar-categoria.jsp">
+                    <div class="buttons-cancel-save">
+                        <a href="admin-menu-principal">
+                            <input type="submit" value="Volver" class="cancel-input">
+                        </a>
+
+                        <a href="admin-nueva-categoria">
                             <input type="submit" value="Agregar" class="add-input">
                         </a>
-                    </div>
-
-                    <div class="buttons-cancel-save">
-                        <a href="admin-edicion-libro.jsp">
-                            <input type="submit" value="Cancelar" class="cancel-input">
-                        </a>
-                        <input type="submit" value="Guardar" class="save-input" form="form">
                     </div>
                 </div>
 

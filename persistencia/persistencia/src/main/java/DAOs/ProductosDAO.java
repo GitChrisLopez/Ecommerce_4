@@ -3,6 +3,7 @@ package DAOs;
 
 import com.persistencia.ManejadorConexiones;
 import definiciones.IProductosDAO;
+import entidades.Autor;
 import entidades.Categoria;
 import entidades.Libro;
 import entidades.Producto;
@@ -17,6 +18,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
@@ -178,33 +180,40 @@ public class ProductosDAO implements IProductosDAO{
      * Implementación del método consultarProductosConFiltros(), de la interfaz {@link IProductosDAO},
      * permite obtener la lista de objetos Producto alamcenados en la base de datos. Dados los filtros
      * de los parámetros.
-     * @param categorias
-     * @param formatos
-     * @param precioMinimo
-     * @param precioMaximo
+     * @param tituloAutor Objeto String que representa el titulo del libro, o del autor, del producto buscado, o parte de él.
+     * @param categorias Objeto {@literal List<CategoriaDTO>} que contiene las categorías de los libros de los productos
+     * a consultar.
+     * @param formatos Objeto {@literal List<FormatoDTO>} que contiene los formatos de los productos
+     * a consultar.
+     * @param precioMinimo Objeto Double que representa el precio mínimo de los productos 
+     * a consultar.
+     * @param precioMaximo Objeto Double que representa el precio maximo de los productos 
+     * a consultar.
      * @return Objeto {@literal List<Producto>} que contiene la lista de 
      * objetos Producto almacenados, que cumplen con los filtros de los parámetros.
      * @throws PersistenciaException Se lanza si ocurre un error en la consulta.
      */
     @Override
     public List<Producto> consultarProductosConFiltros(
+        String tituloAutor,
         List<Categoria> categorias, 
         List<Formato> formatos, 
         Double precioMinimo, 
         Double precioMaximo) throws PersistenciaException {
 
+        
+        
         // Se crea el objeto EntityManager
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         
         // Se crea el objeto CriteriaBuilder
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         
-        
         // Se crea el objeto CriteriaQuery<Producto>, es la
         // consulta ejecutable, devolverá objetos Producto
         CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
         
-        // Se obtiene la entidad Producto, desde donde se realizará la búsqueda // 
+        // Se obtiene la entidad Producto, desde donde se realizará la búsqueda
         Root<Producto> entidadProducto = criteriaQuery.from(Producto.class);
 
         // Lista para acumular los predicados que se aplicarán.
@@ -213,9 +222,53 @@ public class ProductosDAO implements IProductosDAO{
         // Se realiza un INNER JOIN entre Productos y Libros.
         Join<Producto, Libro> joinLibro = entidadProducto.join("libro", JoinType.INNER); 
         
-        //Se realiza un Join con Categoria.
+        //Se realiza un INNER JOIN con Categoria.
         Join<Libro, Categoria> joinCategoria = joinLibro.join("categorias", JoinType.INNER); 
 
+        //Se realiza un INNER JOIN con Autor.
+        Join<Libro, Autor> joinAutor = joinLibro.join("autor", JoinType.INNER);
+
+        // Predicado para búsqueda por título o nombre completo de autor.
+        if (tituloAutor != null && !tituloAutor.trim().isEmpty()) {
+            
+            String patron = "%" + tituloAutor.toLowerCase() + "%";
+
+            // Predicado para el título del libro.
+            Predicate predicadoTitulo = criteriaBuilder.like(
+                criteriaBuilder.lower(joinLibro.get("titulo")), 
+                patron
+            );
+
+            // Comprobación con nombre de autor.
+            String terminoBusqueda = "%" + tituloAutor.trim().toLowerCase().replace(" ", "") + "%";
+
+            // Se convierten valores nulos a cadenas vacías para que la concatenación no falle.
+            // Se une el nombre y el apellido paterno.
+            Expression<String> nombreApellidoPaterno = criteriaBuilder.concat(
+                criteriaBuilder.coalesce(joinAutor.get("nombre"), ""), 
+                criteriaBuilder.coalesce(joinAutor.get("apellidoPaterno"), "")
+            );
+
+            // Se une lo anterior, al apellido materno.
+            Expression<String> nombreCompleto = criteriaBuilder.concat(
+                nombreApellidoPaterno, 
+                criteriaBuilder.coalesce(joinAutor.get("apellidoMaterno"), "")
+            );
+
+            // Predicado para determinar si el nombre completo contiene el nombre buscado.
+            Predicate predicadoAutor = criteriaBuilder.like(
+                criteriaBuilder.lower(nombreCompleto), 
+                terminoBusqueda
+            );
+
+            // Se unen los dos predicados.
+            Predicate predicadoBusqueda = criteriaBuilder.or(predicadoTitulo, predicadoAutor);
+
+            predicados.add(predicadoBusqueda);
+        }
+        
+        
+        
         // Predicado para categorías.
         if (categorias != null && !categorias.isEmpty()) {
             Predicate predicadoCategoria = joinCategoria.in(categorias);
@@ -237,10 +290,13 @@ public class ProductosDAO implements IProductosDAO{
 
         // Rango máximo (Precio <= precioMaximo)
         if (precioMaximo != null) {
-            Predicate pMax = criteriaBuilder.lessThanOrEqualTo(entidadProducto.get("precio"), precioMaximo);
-            predicados.add(pMax);
+            Predicate predicadoPrecioMaximo = criteriaBuilder.lessThanOrEqualTo(entidadProducto.get("precio"), precioMaximo);
+            predicados.add(predicadoPrecioMaximo);
         }
 
+        // Se obtienen productos únicos.
+        criteriaQuery.distinct(true);
+        
         // Si hay predicados, se unen todos y se aplican al objeto Criteria Query.
         if (!predicados.isEmpty()) {
 

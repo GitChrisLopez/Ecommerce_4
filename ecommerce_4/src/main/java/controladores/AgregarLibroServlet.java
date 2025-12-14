@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,19 +28,19 @@ import java.util.List;
 @WebServlet(name = "AgregarLibroServlet", urlPatterns = {"/admin-agregar-libro"})
 public class AgregarLibroServlet extends HttpServlet {
 
+    private IAutoresBO autoresBO;
+    private IEditorialesBO editorialesBO;
+    private ICategoriasBO categoriasBO;
     private ILibrosBO librosBO;
-    private IEditorialesBO editorialBO;
-    private IAutoresBO autorBO;
-    private ICategoriasBO categoriaBO;
 
     @Override
     public void init() throws ServletException {
         super.init();
 
+        this.autoresBO = FabricaBO.obtenerAutoresBO();
+        this.editorialesBO = FabricaBO.obtenerEditorialesBO();
+        this.categoriasBO = FabricaBO.obtenerCategoriasBO();
         this.librosBO = FabricaBO.obtenerLibrosBO();
-        this.editorialBO = FabricaBO.obtenerEditorialesBO();
-        this.autorBO = FabricaBO.obtenerAutoresBO();
-        this.categoriaBO = FabricaBO.obtenerCategoriasBO();
     }
 
     /**
@@ -95,117 +95,146 @@ public class AgregarLibroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+        
+        // Se obtienen los datos enviados para agregar el libro.
+        String titulo = request.getParameter("titulo");
+        String sinopsis = request.getParameter("sinopsis");
+        String idAutorStr = request.getParameter("id-autor");
+        String idEditorialStr = request.getParameter("id-editorial");
+        String[] idsCategoriasSeleccionadasStr = request.getParameterValues("ids-categorias");
+        String fechaPublicacionStr = request.getParameter("fecha-publicacion");
 
+        try{
+            
+            // Se obtiene el Id del autor.
+            Long idAutor = null;
+            if(idAutorStr != null && !idAutorStr.isEmpty()){
+                idAutor = Long.valueOf(idAutorStr);
+            }
+            
+            // Se obtiene el Id de la editorial.
+            Long idEditorial = null;
+            if(idEditorialStr != null && !idEditorialStr.isEmpty()){
+                idEditorial = Long.valueOf(idEditorialStr);
+            }
+            
+            // Se obtiene la fecha de publicación.
             LocalDate fechaPublicacion = null;
-
-            // Se obtienen los datos ingresados.
-            String idEditorialStr = request.getParameter("id-editorial");
-            String idAutorStr = request.getParameter("id-autor");
-            String idCategoriaStr = request.getParameter("id-categoria");
-
-            String titulo = request.getParameter("titulo");
-            String fechaPublicacionStr = request.getParameter("fecha-publicacion");
-
-            try {
+            if(fechaPublicacionStr != null && !fechaPublicacionStr.isEmpty()){
                 fechaPublicacion = LocalDate.parse(fechaPublicacionStr);
-            } catch (java.time.format.DateTimeParseException e) {
-                System.err.println("Formato de fecha inválido: " + fechaPublicacionStr);
             }
+            
 
-            String sinopsis = request.getParameter("sinopsis");
+            // Se obtiene el autor con el Id ingresado. 
+            AutorDTO autor = autoresBO.consultarAutor(idAutor);
+            
+            // Se obtiene la editorial con el Id ingreasdo.
+            EditorialDTO editorial = editorialesBO.consultarEditorial(idEditorial);
+            
+            // Se obtienen las categorías seleccionadas.
+            List<CategoriaDTO> categorias = new LinkedList<>();
+           
+            if(idsCategoriasSeleccionadasStr != null){
+                
+                for(String idCategoriaStr: idsCategoriasSeleccionadasStr){
 
-            // Encontrar editorial
-            if (idEditorialStr == null || idEditorialStr.isEmpty()) {
-                throw new IllegalArgumentException("Debe seleccionar una editorial.");
+                    Long idCategoria = Long.valueOf(idCategoriaStr);
+                    categorias.add(categoriasBO.consultarCategoria(idCategoria));
+                }    
             }
-            Long idEditorial = Long.valueOf(idEditorialStr);
-            EditorialDTO editorialEncontrada = editorialBO.consultarEditorial(idEditorial);
+            
 
-            // Encontrar autor
-            if (idAutorStr == null || idAutorStr.isEmpty()) {
-                throw new IllegalArgumentException("Debe seleccionar un autor.");
-            }
-            Long idAutor = Long.valueOf(idAutorStr);
-            AutorDTO autorEncontrado = autorBO.consultarAutor(idAutor);
-
-            // Encontrar categoria
-            if (idCategoriaStr == null || idCategoriaStr.isEmpty()) {
-                throw new IllegalArgumentException("Debe seleccionar una categoria.");
-            }
-            Long idCategoria = Long.valueOf(idCategoriaStr);
-            CategoriaDTO categoriaEncontrada = categoriaBO.consultarCategoria(idCategoria);
-
-            // Se crea dto con los datos nuevos del libro.
+            // Se crea un dto con los nuevos datos del libro.
             LibroDTO libroDTO = new LibroDTO();
+            libroDTO.setAutor(autor);
+            libroDTO.setEditorial(editorial);
+            libroDTO.setCategorias(categorias);
             libroDTO.setTitulo(titulo);
-            libroDTO.setAutor(autorEncontrado);
-
-            List<CategoriaDTO> categoriasLibro = new ArrayList<>();
-            categoriasLibro.add(categoriaEncontrada);
-            libroDTO.setCategorias(categoriasLibro);
-
-            libroDTO.setEditorial(editorialEncontrada);
-            libroDTO.setFechaPublicacion(fechaPublicacion);
             libroDTO.setSinopsis(sinopsis);
+            libroDTO.setFechaPublicacion(fechaPublicacion);
 
             librosBO.registrarLibro(libroDTO);
 
-            // Como el registro fue exitoso, se elimina cualquier producto pendiente y error guardados
+            // Como el agregado fue exitoso, se elimina cualquier libro pendiente y error guardados
             // en la sesión.
             request.getSession().removeAttribute("libroPendienteAgregar");
             request.getSession().removeAttribute("errorSesion");
+            request.getSession().removeAttribute("mensajeError");
 
             response.sendRedirect("admin-libros-registrados");
 
         } catch (Exception e) {
 
-            e.printStackTrace();
             // Se guardan los datos ingresados por el usuario.
             LibroDTO libroPendienteAgregar = new LibroDTO();
             try {
 
+                // Se obtiene el título del libro.
                 libroPendienteAgregar.setTitulo(request.getParameter("titulo"));
+                
+                // Se obtiene la sinopsis del libro.
                 libroPendienteAgregar.setSinopsis(request.getParameter("sinopsis"));
 
+                // Se crea un objeto AutorDTO para almacenar el Id del autor seleccionado.
                 try {
-                    libroPendienteAgregar.setFechaPublicacion(LocalDate.parse(request.getParameter("fecha-publicacion")));
+                    String idAutorRecuperado = request.getParameter("id-autor");
+
+                    if (idAutorRecuperado != null && !idAutorRecuperado.isEmpty()) {
+                        AutorDTO autor = new AutorDTO();
+                        autor.setId(Long.valueOf(idAutorRecuperado));
+                        libroPendienteAgregar.setAutor(autor);
+                    }
                 } catch (Exception ex) {
 
                 }
 
-                String idAutorStr = request.getParameter("id-autor");
-                if (idAutorStr != null && !idAutorStr.isEmpty()) {
-                    Long idAutorPendiente = Long.valueOf(idAutorStr);
-                    AutorDTO autor = autorBO.consultarAutor(idAutorPendiente);
-                    libroPendienteAgregar.setAutor(autor);
-                } else {
-                    libroPendienteAgregar.setAutor(new AutorDTO());
+                // Se crea un objeto EditorialDTO para almacenar el Id de la editorial seleccionada.
+                try {
+
+                    String idEditorialRecuperado = request.getParameter("id-editorial");
+
+                    if (idEditorialRecuperado != null && !idEditorialRecuperado.isEmpty()) {
+
+                        EditorialDTO editorial = new EditorialDTO();
+                        editorial.setId(Long.valueOf(idEditorialRecuperado));
+                        libroPendienteAgregar.setEditorial(editorial);
+                    }
+                } catch (Exception ex) {
                 }
 
-                String idEditorialStr = request.getParameter("id-editorial");
-                if (idEditorialStr != null && !idEditorialStr.isEmpty()) {
-                    Long idEditorialPendiente = Long.valueOf(idEditorialStr);
-                    EditorialDTO editorial = editorialBO.consultarEditorial(idEditorialPendiente);
-                    libroPendienteAgregar.setEditorial(editorial);
-                } else {
-                    libroPendienteAgregar.setEditorial(new EditorialDTO());
+                // Se crea un objeto EditorialDTO para almacenar los Id de las categorías seleccionadas.
+                try {
+                    String[] idsCategoriasRecuperados = request.getParameterValues("ids-categorias");
+                    List<CategoriaDTO> categoriasRecuperadas = new LinkedList<>();
+
+                    if (idsCategoriasRecuperados != null) {
+
+                        for (String idCategoriaRecuperado : idsCategoriasRecuperados) {
+
+                            CategoriaDTO categoria = new CategoriaDTO();
+                            categoria.setId(Long.valueOf(idCategoriaRecuperado));
+                            categoriasRecuperadas.add(categoria);
+                        }
+                    }
+                    libroPendienteAgregar.setCategorias(categoriasRecuperadas);
+
+                } catch (Exception ex) {
+                    
                 }
 
-                String idCategoriaStr = request.getParameter("id-categoria");
-                if (idCategoriaStr != null && !idCategoriaStr.isEmpty()) {
-                    Long idCategoriaPendiente = Long.valueOf(idCategoriaStr);
-                    CategoriaDTO categoria = categoriaBO.consultarCategoria(idCategoriaPendiente);
-                    List<CategoriaDTO> categoriasLibro = new ArrayList<>();
-                    categoriasLibro.add(categoria);
-                    libroPendienteAgregar.setCategorias(categoriasLibro);
-                } else {
-                    List<CategoriaDTO> categoriasLibro = new ArrayList<>();
-                    categoriasLibro.add(new CategoriaDTO()); 
-                    libroPendienteAgregar.setCategorias(categoriasLibro);
+                // Se recupera la fecha ingresada.
+                try {
+                     String fechaStr = request.getParameter("fecha-publicacion");
+                     if(fechaStr != null && !fechaStr.isEmpty()){
+                         libroPendienteAgregar.setFechaPublicacion(LocalDate.parse(fechaStr));
+                     }
+                } catch (Exception ex) {
+                
                 }
+
 
             } catch (Exception ex) {
+                // Si falla la recuperación de algún dato, no se considera.
             }
 
             // Se guarda el libro pendiente en la sesión y el mensaje de error.

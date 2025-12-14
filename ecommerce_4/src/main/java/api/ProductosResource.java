@@ -81,23 +81,12 @@ public class ProductosResource {
             }
 
             List<ProductoDTO> productos = productosBO.consultarProductosConFiltros(
+                    nombreLibro,
                     filtrosCategoria,
                     filtrosFormato,
                     precioMinimo,
                     precioMaximo
             );
-
-            if (nombreLibro != null && !nombreLibro.trim().isEmpty()) {
-                List<ProductoDTO> productosPorNombre = new ArrayList<>();
-                for (ProductoDTO producto : productos) {
-                    if (producto.getLibro().getTitulo().toLowerCase().contains(nombreLibro.trim().toLowerCase())) {
-                        productosPorNombre.add(producto);
-                        continue;
-                    }
-
-                }
-                productos = productosPorNombre;
-            }
 
             return Response.ok(productos).build();
 

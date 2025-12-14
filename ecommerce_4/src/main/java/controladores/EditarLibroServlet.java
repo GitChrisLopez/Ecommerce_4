@@ -1,7 +1,13 @@
 
 package controladores;
 
+import definiciones.IAutoresBO;
+import definiciones.ICategoriasBO;
+import definiciones.IEditorialesBO;
 import definiciones.ILibrosBO;
+import dominio.AutorDTO;
+import dominio.CategoriaDTO;
+import dominio.EditorialDTO;
 import dominio.LibroDTO;
 import excepciones.NegocioException;
 import fabrica.FabricaBO;
@@ -13,6 +19,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,12 +33,18 @@ import jakarta.servlet.http.HttpSession;
 public class EditarLibroServlet extends HttpServlet {
 
     private ILibrosBO librosBO;
+    private ICategoriasBO categoriasBO;
+    private IAutoresBO autoresBO;
+    private IEditorialesBO editorialesBO;
     
     @Override
     public void init() throws ServletException {
         super.init();
         
         this.librosBO = FabricaBO.obtenerLibrosBO();
+        this.categoriasBO = FabricaBO.obtenerCategoriasBO();
+        this.autoresBO = FabricaBO.obtenerAutoresBO();
+        this.editorialesBO = FabricaBO.obtenerEditorialesBO();
         
     }
     /**
@@ -69,20 +84,6 @@ public class EditarLibroServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String idLibroString = request.getParameter("id");
@@ -135,10 +136,55 @@ public class EditarLibroServlet extends HttpServlet {
                 }
             }
         }
+        
+        
+        List<AutorDTO> listaAutores = null;
+        
+        try {
+            listaAutores = autoresBO.consultarAutores();
+        } catch (NegocioException ex) {
+            request.setAttribute("mensajeError", ex.getMessage());
+        }
+        
+        List<CategoriaDTO> listaCategorias = null;
+        
+        try {
+            listaCategorias = categoriasBO.consultarCategorias();
+        } catch (NegocioException ex) {
+            request.setAttribute("mensajeError", ex.getMessage());
+        }
+        
+        
+        List<EditorialDTO> listaEditoriales = null;
+        
+        try {
+            listaEditoriales = editorialesBO.consultarEditoriales();
+        } catch (NegocioException ex) {
+            request.setAttribute("mensajeError", ex.getMessage());
+        }
 
+        request.setAttribute("listaAutores", listaAutores);
+        request.setAttribute("listaEditoriales", listaEditoriales);
+        request.setAttribute("listaCategorias", listaCategorias);
         request.setAttribute("libroEditar", libroEditar);
         
         request.getRequestDispatcher("admin-edicion-libro.jsp").forward(request, response);
+        
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        
         
     }
 

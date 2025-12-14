@@ -35,7 +35,7 @@ body{
 }
 
 main {
-    background-color: white;
+    background-color: var(--lighter-grey);
     min-height: 100vh;
     margin-left: 100px;
     width: calc(100% - 100px);

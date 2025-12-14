@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -180,37 +181,33 @@ public class AutoresDAO implements IAutoresDAO{
         // Filtro de nombre
         if (nombre != null && !nombre.trim().isEmpty()) {
 
-            // El nombre se convierte a minúsculas y se añaden comodines.
-            String patronBusqueda = "%" + nombre.trim().toLowerCase() + "%";
+            // Se eliminan espacios y se convierte a minúsculas.
+            String terminoBusqueda = "%" + nombre.trim().toLowerCase().replace(" ", "") + "%";
 
-            // Predicado para nombres
-            Predicate predicadoNombres = criteriaBuilder.like(
-                criteriaBuilder.lower(entidadAutor.get("nombres")),
-                patronBusqueda
+            // Se convierten valores nulos a cadenas vacías para que la concatenación no falle.
+            // Se une el nombre y el apellido paterno.
+            Expression<String> nombreApellidoPaterno = criteriaBuilder.concat(
+                criteriaBuilder.coalesce(entidadAutor.get("nombre"), ""), 
+                criteriaBuilder.coalesce(entidadAutor.get("apellidoPaterno"), "")
             );
 
-            // Predicado para apellido paterno
-            Predicate predicadoApellidoPaterno = criteriaBuilder.like(
-                criteriaBuilder.lower(entidadAutor.get("apellidoPaterno")),
-                patronBusqueda
+            // Se une lo anterior, al apellido materno.
+            Expression<String> nombreCompleto = criteriaBuilder.concat(
+                nombreApellidoPaterno, 
+                criteriaBuilder.coalesce(entidadAutor.get("apellidoMaterno"), "")
             );
 
-            // Predicado para apellido materno
-            Predicate predicadoApellidoMaterno = criteriaBuilder.like(
-                criteriaBuilder.lower(entidadAutor.get("apellidoMaterno")),
-                patronBusqueda
+            // Predicado para determinar si el nombre completo contiene el nombre buscado.
+            Predicate predicado = criteriaBuilder.like(
+                criteriaBuilder.lower(nombreCompleto), 
+                terminoBusqueda
             );
 
-            // Se unen los tres predicados con OR
-            Predicate predicadoFinal = criteriaBuilder.or(predicadoNombres, predicadoApellidoPaterno, predicadoApellidoMaterno);
-
-            // Se aplica el predicado final a la consulta
-            criteriaQuery.where(predicadoFinal);
+            criteriaQuery.where(predicado);
         }
 
-        // Se seleccionan todos los atributos de Autor, y se ordenan en orden alfabético.
-        criteriaQuery.select(entidadAutor)
-                     .orderBy(criteriaBuilder.asc(entidadAutor.get("apellidoPaterno")));
+        // Se seleccionan todos los atributos de Autor, y se ordenan en orden alfabético por el apellido paterno.
+        criteriaQuery.select(entidadAutor).orderBy(criteriaBuilder.asc(entidadAutor.get("apellidoPaterno")));
 
         // Se crea el objeto TypedQuery<Autor>, es la consulta ejecutable.
         TypedQuery<Autor> query = entityManager.createQuery(criteriaQuery);

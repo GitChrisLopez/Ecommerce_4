@@ -45,6 +45,7 @@ public interface IProductosBO {
     /**
      * Permite obtener la lista de Productos registrados, dados los filtros de los parámetros.
      * 
+     * @param tituloAutor Objeto String que representa el titulo del libro, o del autor, del producto buscado, o parte de él.
      * @param categorias Objeto {@literal List<CategoriaDTO>} que contiene las categorías de los libros de los productos
      * a consultar.
      * @param formatos Objeto {@literal List<FormatoDTO>} que contiene los formatos de los productos
@@ -57,6 +58,7 @@ public interface IProductosBO {
      * @throws NegocioException Se lanza si se obtiene una excepción al consultar los productos.
      */
     public abstract List<ProductoDTO> consultarProductosConFiltros(
+            String tituloAutor,
             List<CategoriaDTO> categorias, 
             List<FormatoDTO> formatos, 
             Double precioMinimo, 

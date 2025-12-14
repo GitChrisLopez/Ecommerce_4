@@ -51,7 +51,7 @@
         </li>
 
         <li class="nav-categorias">
-            <a href="./admin-categorias-registradas.jsp">
+            <a href="./admin-categorias-registradas">
                 <div class="categorias">
                     <img src="./icons/categorias.png" class="varios-icon" /> 
                     <span class="nav-text">Categorías</span>
@@ -60,7 +60,7 @@
         </li>
 
         <li class="nav-editoriales">
-            <a href="./admin-agregar-editorial.jsp">
+            <a href="./admin-editoriales-registradas">
                 <div class="editoriales">
                     <img src="./icons/editoriales.png" class="varios-icon" />
                     <span class="nav-text">Editoriales</span>
@@ -69,7 +69,7 @@
         </li>
 
         <li class="nav-autores">
-            <a href="./admin-autores-registrados.jsp">
+            <a href="./admin-autores-registrados">
                 <div class="autores">
                     <img src="./icons/autores.png" class="varios-icon" /> 
                     <span class="nav-text">Autores</span>

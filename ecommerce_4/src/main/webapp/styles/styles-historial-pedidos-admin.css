@@ -15,7 +15,7 @@ body{
 
 main{
     display: flex;
-    background-color: white;
+    background-color: var(--lighter-grey);
     height: auto;
     min-height: 100vh;
 }

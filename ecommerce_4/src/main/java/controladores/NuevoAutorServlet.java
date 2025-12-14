@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
  * ID: 00000253080
  * 
  */
-@WebServlet(name = "NuevoAutorServlet", urlPatterns = {"/nuevo-autor-servlet"})
+@WebServlet(name = "NuevoAutorServlet", urlPatterns = {"/admin-nuevo-autor"})
 public class NuevoAutorServlet extends HttpServlet {
 
     /**
