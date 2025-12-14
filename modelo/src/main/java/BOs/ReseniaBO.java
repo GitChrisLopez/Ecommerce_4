@@ -16,19 +16,20 @@ import mappers.MapperResenia;
  *
  * @author norma
  */
-public class ReseniaBO implements IReseniaBO{
+public class ReseniaBO implements IReseniaBO {
 
     /**
-     * Objeto que implementa la interfaz IReseniaDAO, permite el acceso a datos para objetos de la clase ReseniaDTO.
+     * Objeto que implementa la interfaz IReseniaDAO, permite el acceso a datos
+     * para objetos de la clase ReseniaDTO.
      */
     private final IReseniaDAO reseniaDAO;
-    
+
     /**
      * Contructor de la clase que recibe un objeto que implementa la interfaz
      * IReseniaDAO.
-     * 
-     * @param reseniaDAO Objeto que implementa la interfaz IReseniaDAO,
-     * permite el acceso a datos para objetos de la clase Resenia.
+     *
+     * @param reseniaDAO Objeto que implementa la interfaz IReseniaDAO, permite
+     * el acceso a datos para objetos de la clase Resenia.
      */
     public ReseniaBO(IReseniaDAO reseniaDAO) {
         this.reseniaDAO = reseniaDAO;
@@ -170,7 +171,55 @@ public class ReseniaBO implements IReseniaBO{
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error en la capa de persistencia al obtener las reseñas filtradas.", ex);
         } catch (Exception ex) {
-            throw new NegocioException("Error inesperado al obtener las reseñas filtradas.", ex);
+            throw new NegocioException("Error al obtener las reseñas filtradas.", ex);
+        }
+    }
+
+    @Override
+    public ReseniaDTO crearResenia(ReseniaDTO resenia) throws PersistenciaException, NegocioException {
+        if (resenia == null) {
+            throw new NegocioException("La reseña no puede ser nula.");
+        }
+        if (resenia.getLibro() == null || resenia.getLibro().getId() == null) {
+            throw new NegocioException("La reseña debe estar asociada a un libro.");
+        }
+        if (resenia.getCliente() == null || resenia.getCliente().getId() == null) {
+            throw new NegocioException("La reseña debe estar asociada a un cliente.");
+        }
+        if (resenia.getFormato() == null) {
+            throw new NegocioException("La reseña debe tener un formato.");
+        }
+        if (resenia.getComentario() != null && resenia.getComentario().length() > 350) {
+            throw new NegocioException("El comentario no puede exceder 350 caracteres.");
+        }
+
+        try {
+            Resenia reseniaEntity = MapperResenia.toEntity(resenia);
+            Resenia reseniaPersistida = reseniaDAO.persistirResenia(reseniaEntity);
+            return MapperResenia.toDto(reseniaPersistida);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error en la capa de persistencia al crear la reseña.", ex);
+        } catch (Exception ex) {
+            throw new NegocioException("Error al crear la reseña.", ex);
+        }
+    }
+
+    @Override
+    public List<ReseniaDTO> obtenerReseniasPorIdLibro(Long idLibro) throws PersistenciaException, NegocioException {
+        if (idLibro == null) {
+            throw new NegocioException("El ID del libro debe ser un número válido.");
+        }
+
+        try {
+            List<Resenia> resenias = reseniaDAO.obtenerReseniasPorIdLibro(idLibro);
+            if (resenias == null) {
+                return new java.util.ArrayList<>();
+            }
+            return MapperResenia.toDtoList(resenias);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error en la capa de persistencia al obtener las reseñas por ID de libro.", ex);
+        } catch (Exception ex) {
+            throw new NegocioException("Error al obtener las reseñas por ID de libro.", ex);
         }
     }
 

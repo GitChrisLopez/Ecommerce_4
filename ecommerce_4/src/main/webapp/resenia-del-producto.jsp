@@ -14,6 +14,7 @@
         <title>Detalles Producto</title>
         <link rel="stylesheet" href="./styles/styles-detalles-producto.css" />
         <link rel="stylesheet" href="./styles/styles-nav.css" />
+        <script src="js/resenia.js"></script>
     </head>
 
     <body>
@@ -36,7 +37,7 @@
                                 <div class="estrella"></div>
                                 <div class="estrella"></div>
                                 <div class="estrella"></div>
-                            </div>
+                    </div>
 
                             <p class="p-editorial">Editorial: TusQuets Editores</p>
                             <p class="p-publicacion">Publicación: 23 de septiembre, 2025</p>
@@ -104,83 +105,23 @@
 
                                 <form class="form-nueva-resenia">
 
-                                    <input class="input-range" type="range" min="0" max="5" step="0.1">
+                                    <label for="calificacion-range">Calificación:</label>
+                                    <input class="input-range" id="calificacion-range" type="range" min="1" max="5" step="1" value="3">
+                                    <span id="calificacion-value">3</span>
 
                                     <label for="titulo-nueva-resenia">Título:</label>
-                                    <input type="text" id="titulo-nueva-resenia" required>
+                                    <input type="text" id="titulo-nueva-resenia">
 
                                     <label for="contenido-nueva-resenia">Contenido:</label>
-                                    <textarea id="contenido-nueva-resenia" required></textarea>
+                                    <textarea id="contenido-nueva-resenia"></textarea>
 
                                     <input type="submit" value="Enviar reseña" class="btn-enviar-resenia">
                                 </form>
                             </div>
-
-                            <div class="resenia-usuario">
-                                <img src="./icons/user.png">
-                                <div class="nombre-calificacion-usuario">
-                                    <span>Catarina Demacia</span>
-                                    <div class="calificacion">
-                                        <p>3</p>
-                                        <div class="estrella"></div>
-                                        <div class="estrella"></div>
-                                        <div class="estrella"></div>
-                                        <div class="estrella"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="resenia-usuario">
-                                    <img src="./icons/user.png">
-                                    <div class="nombre-calificacion-usuario">
-                                        <span>Victor Almendra</span>
-                                        <div class="calificacion">
-                                            <p>3</p>
-                                            <div class="estrella"></div>
-                                            <div class="estrella"></div>
-                                            <div class="estrella"></div>
-                                            <div class="estrella"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="contenido-resenia-usuario">
-
-                                    <p class="titulo-resenia">Buena idea, pero se me hizo pesado</p>
-                                    <input type="checkbox" id="ver" class="input-checkbox">
-                                    <label class="btn-ver" for="ver">
-                                        <span class="span-ver">Ver</span>
-                                        <span class="span-ocultar">Ocultar</span>
-                                    </label>
-
-                                    <div class="contenido-resenia-ampliada">
-                                        <p>
-                                            La sinopsis me pareció súper interesante y por eso lo compré.  
-                                            La historia de los dos hermanos y el pasado que los persigue tiene mucho potencial.<br><br>
-
-                                            Sin embargo, el libro se me hizo demasiado lento. Entiendo que la intención es crear una atmósfera de tensión
-                                            mientras el protagonista espera a su hermano, pero para mi gusto hay capítulos enteros en los que sentí que no
-                                            pasaba casi nada. Me costó mantenerme concentrado y estuve a punto de dejarlo varias veces.<br><br>
-
-                                            No es un mal libro, la prosa del autor es buena y los personajes están bien planteados, pero el ritmo es muy pausado.
-                                            Creo que a la historia le hubiera venido bien un poco más de acción o que los conflictos se desarrollaran más rápido.<br><br>
-
-                                            Está bien si te gustan las novelas introspectivas y lentas, pero si buscas un thriller con más movimiento,
-                                            quizás este no sea para ti.
-                                        </p>
-                                    </div>
-
-                                </div>
-                            </div>
-
                         </div>
-
                     </div>
                 </div>
-
         </div>
-
     </body>
 
 </html>

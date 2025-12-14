@@ -170,5 +170,5 @@ function formatearMetodoPago(metodoPago) {
 
 function formatearPrecio(precio) {
     const num = Number(precio);
-    return isNaN(num) ? '$0.00' : `$${num.toFixed(2)}`;
+    return `$${num.toFixed(2)}`;
 }

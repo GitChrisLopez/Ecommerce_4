@@ -11,6 +11,7 @@ import fabrica.FabricaBO;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -39,13 +40,13 @@ public class ProductosResource {
     }
 
     /**
-     * Obtiene productos con filtros opcionales.
+     * Obtiene productos con filtros.
      *
-     * @param categorias IDs de categorías separados por coma
+     * @param categorias IDs de categorías
      * @param formatos Formatos separados por coma
      * @param precioMinimo Precio mínimo
      * @param precioMaximo Precio máximo
-     * @param nombreLibro Texto para buscar en título o autor
+     * @param nombreLibro Texto para buscar en título
      * @return Lista de productos filtrados
      */
     @GET
@@ -128,4 +129,27 @@ public class ProductosResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    /**
+     * Obtiene el detalle de un producto por su ID.
+     *
+     * @param id ID del producto
+     * @return Detalle del producto
+     */
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProducto(@PathParam("id") Long id) {
+        try {
+            ProductoDTO producto = productosBO.consultarProducto(id);
+            return Response.ok(producto).build();
+
+        } catch (NegocioException ex) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+
+        } catch (Exception ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

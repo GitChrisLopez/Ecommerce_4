@@ -62,4 +62,6 @@ public interface IReseniaDAO {
      * @throws PersistenciaException Si ocurre un error durante la consulta.
      */
     public List<Resenia> obtenerReseniasFiltradasPorLibro(String libro) throws PersistenciaException;
+    
+    public List<Resenia> obtenerReseniasPorIdLibro(Long idLibro) throws PersistenciaException;
 }

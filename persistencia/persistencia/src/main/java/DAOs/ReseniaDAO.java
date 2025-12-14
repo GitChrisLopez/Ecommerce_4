@@ -193,4 +193,27 @@ public class ReseniaDAO implements IReseniaDAO {
         }
     }
 
+    @Override
+    public List<Resenia> obtenerReseniasPorIdLibro(Long idLibro) throws PersistenciaException {
+
+        EntityManager em = ManejadorConexiones.getEntityManager();
+
+        List<Resenia> resenias = null;
+        try {
+
+            String jpql = "SELECT r FROM Resenia r WHERE r.libro.id = :idLibro";
+
+            resenias = em.createQuery(jpql, Resenia.class)
+                    .setParameter("idLibro", idLibro)
+                    .getResultList();
+
+            return resenias;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener resenias por ID de libro: " + idLibro, e);
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
 }

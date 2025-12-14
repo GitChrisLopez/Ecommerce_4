@@ -67,4 +67,8 @@ public interface IReseniaBO {
      * @throws NegocioException si no se pudo obtener la lista de resenias.
      */
     public List<ReseniaDTO> obtenerReseniasFiltradasPorLibro(String busqueda) throws PersistenciaException, NegocioException;
+    
+    public ReseniaDTO crearResenia(ReseniaDTO resenia) throws PersistenciaException, NegocioException;
+    
+    public List<ReseniaDTO> obtenerReseniasPorIdLibro(Long idLibro) throws PersistenciaException, NegocioException;
 }
