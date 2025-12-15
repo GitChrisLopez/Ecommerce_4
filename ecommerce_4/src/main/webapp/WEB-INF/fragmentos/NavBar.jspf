@@ -45,7 +45,7 @@
                         <p>Direcciones</p>
                     </a>
 
-                    <a class="user-option" href="${pageContext.request.contextPath}/CerrarSesion">
+                    <a class="user-option" href="${pageContext.request.contextPath}/login?accion=logout">
                         <img src="./icons/cerrar-sesion.png" class="option-icon" />
                         <p>Cerrar sesión</p>
                     </a>

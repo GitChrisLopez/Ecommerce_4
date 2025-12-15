@@ -5,6 +5,7 @@
 package controladores.filtros;
 
 import dominio.AdministradorDTO;
+import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -15,13 +16,15 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.Cookie;
+import utils.JwtUtil;
 
 /**
  * Filtro para asegurar que solo admins logueados ingresen
  *
  * @author chris
  */
-
 public class AdminFiltro implements Filter {
 
     @Override
@@ -31,46 +34,57 @@ public class AdminFiltro implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Se verifica la URL que se está pidiendo
+        // Obtener la URL que se está pidiendo
         String path = httpRequest.getServletPath();
 
-        // Se verifica que sea una pantalla admin (que empiezan con admin)con startsWith (empieza con...)
+        // Verificar si es ruta de admin
         boolean esRutaAdmin = path.startsWith("/admin-");
 
         if (esRutaAdmin) {
-
-            // Validamos la sesion
-            HttpSession session = httpRequest.getSession(false);
-            boolean logueado = false;
-
-            Object usuarioSesion = session != null ? session.getAttribute("usuarioLogueado") : null;
-
-            if (usuarioSesion != null) {
-                if (usuarioSesion instanceof AdministradorDTO) {
-                    logueado = true;
+            // logica de la cookie jwt
+            String token = null;
+            if (httpRequest.getCookies() != null) {
+                for (Cookie c : httpRequest.getCookies()) {
+                    if ("jwtToken".equals(c.getName())) {
+                        token = c.getValue();
+                        break;
+                    }
                 }
             }
 
-            if (logueado) {
-                // el usuario es admin
-                chain.doFilter(request, response);
+            // Si no hay token, al login
+            if (token == null) {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/iniciar-sesion.jsp");
+                return;
+            }
+
+            // Validar token
+            Claims claims = JwtUtil.validarToken(token);
+            if (claims != null) {
+                String rol = claims.get("rol", String.class);
+
+                // Verificar que sea Administrador
+                if ("AdministradorDTO".equals(rol)) {
+                    // Es admin y el token es válido -> PASE
+                    chain.doFilter(request, response);
+                } else {
+                    // El token es válido pero es un Cliente intentando entrar a Admin -> ERROR 403
+                    httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso denegado: No eres administrador.");
+                }
             } else {
-                // no es admin
+                // Token manipulado o expirado -> al login
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/iniciar-sesion.jsp");
             }
         } else {
-            // si no empieza con admin pues no se hace nada
             chain.doFilter(request, response);
         }
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
     }
 
     @Override
     public void destroy() {
-        Filter.super.destroy();
     }
 }

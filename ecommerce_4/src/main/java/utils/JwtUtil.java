@@ -4,6 +4,8 @@
  */
 package utils;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -18,7 +20,7 @@ import dominio.UsuarioDTO;
 public class JwtUtil {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long TIEMPO_EXPIRACION = 86400000;
+    private static final long TIEMPO_EXPIRACION = 86400000; // 1 día
 
     public static String generarToken(UsuarioDTO usuario) {
         return Jwts.builder()
@@ -29,6 +31,19 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + TIEMPO_EXPIRACION))
                 .signWith(SECRET_KEY)
                 .compact();
+    }
+
+    public static Claims validarToken(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (JwtException e) {
+            // El token es inválido
+            return null;
+        }
     }
 
 }

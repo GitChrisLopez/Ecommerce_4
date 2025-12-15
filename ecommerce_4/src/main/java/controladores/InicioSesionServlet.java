@@ -54,16 +54,28 @@ public class InicioSesionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String accion = request.getParameter("accion");
 
         if (accion != null && accion.equals("logout")) {
+            // Invalidar la sesión del servidor (buena práctica aunque uses tokens)
             HttpSession session = request.getSession(false);
             if (session != null) {
-                session.invalidate(); // Destruye la sesión
+                session.invalidate();
             }
+
+            // "Matar" la cookie/sesion
+            // Creamos una cookie con el mismo nombre, mismo path, pero valor vacío y vida 0
+            Cookie jwtCookie = new Cookie("jwtToken", "");
+            jwtCookie.setPath("/");
+            jwtCookie.setMaxAge(0); // 0 segundos de vida = X_X
+            response.addCookie(jwtCookie);
+
+            // Redirigir al usuario al inicio (login)
             response.sendRedirect("index.jsp");
+
         } else {
-            // si se intenta entrar por GET al inicio de sesion sin cerrar sesion, los mandamos al formulario
+            // mostrar el formulario
             response.sendRedirect("iniciar-sesion.jsp");
         }
     }
@@ -87,14 +99,13 @@ public class InicioSesionServlet extends HttpServlet {
             jwtCookie.setSecure(false);
             jwtCookie.setPath("/");
             jwtCookie.setMaxAge(60 * 60 * 24);
-            
+
             // enviar la cookie
             response.addCookie(jwtCookie);
 
             // guarda el usuario en la sesión para que el AdminFiltro lo encuentre
-            HttpSession session = request.getSession();
-            session.setAttribute("usuarioLogueado", usuarioLogueado);
-
+            // HttpSession session = request.getSession();
+            // session.setAttribute("usuarioLogueado", usuarioLogueado);
             // Mantienes tu redirección normal
             if (usuarioLogueado instanceof AdministradorDTO) {
                 response.sendRedirect("admin-menu-principal");
