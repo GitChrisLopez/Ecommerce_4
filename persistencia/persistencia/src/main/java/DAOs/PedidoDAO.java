@@ -6,7 +6,7 @@ import entidades.Pedido;
 import enumeradores.Estado;
 import excepciones.PersistenciaException;
 import java.util.List;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Clase que se encarga de realizar operaciones de persistencia sobre objetos

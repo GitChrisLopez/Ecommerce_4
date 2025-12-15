@@ -1,9 +1,10 @@
 
 package entidades;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import entidades.Usuario;
 
 /**
  * Archivo: Administrador.java 

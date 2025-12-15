@@ -216,8 +216,6 @@ public class ReseniaBO implements IReseniaBO {
                 return new java.util.ArrayList<>();
             }
             return MapperResenia.toDtoList(resenias);
-        } catch (PersistenciaException ex) {
-            throw new NegocioException("Error en la capa de persistencia al obtener las reseñas por ID de libro.", ex);
         } catch (Exception ex) {
             throw new NegocioException("Error al obtener las reseñas por ID de libro.", ex);
         }

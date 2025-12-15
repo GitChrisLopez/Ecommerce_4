@@ -5,14 +5,19 @@ import BOs.UsuarioBO;
 import dominio.AdministradorDTO;
 import dominio.ClienteDTO;
 import dominio.UsuarioDTO;
+import dominio.ClienteDTO;
+import dominio.UsuarioDTO;
+import entidades.Administrador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JwtUtil;
 
 /**
  * Servlet para autenticar al administrador.
@@ -66,18 +71,31 @@ public class InicioSesionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         UsuarioDTO usuarioLogueado = usuarioBO.iniciarSesion(email, password);
 
         if (usuarioLogueado != null) {
-            HttpSession session = request.getSession(true);
+            // generar string token
+            String token = JwtUtil.generarToken(usuarioLogueado);
 
-            // guardamos la sesion temporal
+            // generar cookie
+            Cookie jwtCookie = new Cookie("jwtToken", token);
+            jwtCookie.setHttpOnly(true);
+            jwtCookie.setSecure(false);
+            jwtCookie.setPath("/");
+            jwtCookie.setMaxAge(60 * 60 * 24);
+            
+            // enviar la cookie
+            response.addCookie(jwtCookie);
+
+            // guarda el usuario en la sesión para que el AdminFiltro lo encuentre
+            HttpSession session = request.getSession();
             session.setAttribute("usuarioLogueado", usuarioLogueado);
 
-            // se redirecciona según el tipo de usuario (user/admin)
+            // Mantienes tu redirección normal
             if (usuarioLogueado instanceof AdministradorDTO) {
                 response.sendRedirect("admin-menu-principal");
             } else if (usuarioLogueado instanceof ClienteDTO) {
@@ -85,9 +103,7 @@ public class InicioSesionServlet extends HttpServlet {
             } else {
                 response.sendRedirect("index.jsp");
             }
-
         } else {
-            // fallo de la autenticación
             response.sendRedirect("iniciar-sesion.jsp?error=true");
         }
     }

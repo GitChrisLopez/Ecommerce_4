@@ -201,11 +201,8 @@ public class PedidoBO implements IPedidoBO {
                 throw new NegocioException("No se encontraron pedidos.");
             }
             return MapperPedido.toDtoList(pedidos);
-        } catch (PersistenciaException e) {
-            throw e;
         } catch (Exception e) {
             throw new NegocioException("Error al obtener la lista de pedidos por cliente.", e);
         }
     }
-
 }

@@ -7,9 +7,9 @@ package DAOs;
 import com.persistencia.ManejadorConexiones;
 import entidades.Administrador;
 import entidades.Usuario;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 
 /**
  *

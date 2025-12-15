@@ -4,10 +4,10 @@ package entidades;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * Representa un tipo de método de pago (Pago con Tarjeta).

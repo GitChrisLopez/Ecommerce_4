@@ -5,7 +5,7 @@ import definiciones.IReseniaDAO;
 import entidades.Resenia;
 import excepciones.PersistenciaException;
 import java.util.List;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 /**
  * Clase que se encarga de realizar
