@@ -17,11 +17,11 @@ public class MapperAdministrador extends MapperUsuario {
      * @param entity
      * @return
      */
-    public static dominio.Administrador toDto(entidades.Administrador entity) {
+    public static dominio.AdministradorDTO toDto(entidades.Administrador entity) {
         if (entity == null) {
             return null;
         }
-        dominio.Administrador dto = new dominio.Administrador();
+        dominio.AdministradorDTO dto = new dominio.AdministradorDTO();
         MapperUsuario.toDto(entity, dto);
 
         return dto;
@@ -33,7 +33,7 @@ public class MapperAdministrador extends MapperUsuario {
      * @param dto
      * @return
      */
-    public static entidades.Administrador toEntity(dominio.Administrador dto) {
+    public static entidades.Administrador toEntity(dominio.AdministradorDTO dto) {
         if (dto == null) {
             return null;
         }

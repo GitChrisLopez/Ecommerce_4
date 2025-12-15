@@ -15,6 +15,28 @@ import javax.persistence.TypedQuery;
  */
 public class ClienteDAO implements IClienteDAO {
 
+    public Cliente iniciarSesion(String correo, String contrasenia) {
+        
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        try {
+            // jPQL para buscar un Cliente
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.correo = :correo AND c.contrasenia = :contra",
+                    Cliente.class
+            );
+            query.setParameter("correo", correo);
+            query.setParameter("contra", contrasenia);
+
+            return query.getSingleResult();
+            
+        } catch (NoResultException e) {
+            // No se encontro ningun cliente
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
     @Override
     public Cliente obtenerClientePorId(Long idCliente) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();

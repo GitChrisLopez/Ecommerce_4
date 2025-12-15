@@ -1,6 +1,7 @@
 package BOs;
 
 import DAOs.AdministradorDAO;
+import dominio.AdministradorDTO;
 /**
  *
  * @author chris
@@ -13,7 +14,7 @@ public class AdministradorBO {
         this.adminDAO = new AdministradorDAO();
     }
 
-    public dominio.Administrador iniciarSesion(String correo, String contrasenia) {
+    public AdministradorDTO iniciarSesion(String correo, String contrasenia) {
 
         if (correo == null || correo.isBlank() || contrasenia == null || contrasenia.isBlank()) {
             System.out.println("Correo o contraseña vacíos");

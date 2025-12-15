@@ -4,9 +4,7 @@
  */
 package api;
 
-import BOs.ClienteBO;
 import definiciones.IClienteBO;
-import definiciones.IClienteDAO;
 import dominio.ClienteDTO;
 import dominio.UsuarioDTO;
 import dtos.ClienteResponseDTO;

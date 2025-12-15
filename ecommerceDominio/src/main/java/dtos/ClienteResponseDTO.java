@@ -4,7 +4,7 @@
  */
 package dtos;
 
-import dominio.Carrito;
+import dominio.CarritoDTO;
 import dominio.DireccionDTO;
 import dominio.PedidoDTO;
 import java.util.List;

@@ -24,6 +24,22 @@ public class ClienteBO implements IClienteBO {
         this.usuarioDAO = new UsuarioDAO();
     }
 
+    public ClienteDTO iniciarSesion(String correo, String contrasenia) {
+
+        if (correo == null || correo.isBlank() || contrasenia == null || contrasenia.isBlank()) {
+            System.out.println("Correo o contraseña vacíos");
+            return null;
+        }
+
+        Cliente clienteEntity = clienteDAO.iniciarSesion(correo, contrasenia);
+
+        if (clienteEntity == null) {
+            return null;
+        }
+        // convertir ENTIDAD a DOMINIO
+        return mappers.MapperCliente.toDto(clienteEntity);
+    }
+    
     @Override
     public ClienteDTO obtenerClientePorId(Long idCliente) throws NegocioException, PersistenciaException {
         if (idCliente == null || idCliente <= 0) {

@@ -43,9 +43,9 @@ public class ClienteDTO extends UsuarioDTO {
     private List<DireccionDTO> direcciones;
 
     /**
-     * Objeto Carrito que representa el carrito de compras actual del Cliente.
+     * Objeto CarritoDTO que representa el carrito de compras actual del Cliente.
      */
-    private Carrito carrito;
+    private CarritoDTO carrito;
 
     /**
      * Lista de objetos Pedido que representa el historial de pedidos realizados
@@ -70,7 +70,7 @@ public class ClienteDTO extends UsuarioDTO {
      * @param telefono Objeto String que representa el número de teléfono del Cliente.
      * @param imagenPerfil Objeto String que representa la dirección de la imagen del perfil del Cliente.
      * @param direcciones Lista de objetos Direccion que representa la lista de direcciones del Cliente.
-     * @param carrito Objeto Carrito que representa el carrito del Cliente.
+     * @param carrito Objeto CarritoDTO que representa el carrito del Cliente.
      * @param pedidos Lista de obetos Pedido que representa la lista de pedidos del Cliente.
      * @param activo Dato boolean que determina si el Cliente está activo o no.
      */
@@ -78,7 +78,7 @@ public class ClienteDTO extends UsuarioDTO {
             String telefono,
             String imagenPerfil,
             List<DireccionDTO> direcciones,
-            Carrito carrito,
+            CarritoDTO carrito,
             List<PedidoDTO> pedidos,
             boolean activo) {
         
@@ -142,18 +142,18 @@ public class ClienteDTO extends UsuarioDTO {
     }
 
     /**
-     * Permite obtener el Carrito de compras actual del Cliente.
-     * @return Objeto Carrito que representa el carrito de compras.
+     * Permite obtener el CarritoDTO de compras actual del Cliente.
+     * @return Objeto CarritoDTO que representa el carrito de compras.
      */
-    public Carrito getCarrito() {
+    public CarritoDTO getCarrito() {
         return carrito;
     }
 
     /**
-     * Permite establecer el Carrito de compras actual del Cliente.
-     * @param carrito Objeto Carrito que representa el carrito de compras.
+     * Permite establecer el CarritoDTO de compras actual del Cliente.
+     * @param carrito Objeto CarritoDTO que representa el carrito de compras.
      */
-    public void setCarrito(Carrito carrito) {
+    public void setCarrito(CarritoDTO carrito) {
         this.carrito = carrito;
     }
 

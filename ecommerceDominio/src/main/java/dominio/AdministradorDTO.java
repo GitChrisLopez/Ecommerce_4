@@ -18,12 +18,12 @@ import javax.persistence.Table;
  * Fecha: 15/10/2025
  */
 
-public class Administrador extends UsuarioDTO {
+public class AdministradorDTO extends UsuarioDTO {
 
     /**
      * Constructor por defecto.
      */
-    public Administrador(){
+    public AdministradorDTO(){
         
     }
     
@@ -38,7 +38,7 @@ public class Administrador extends UsuarioDTO {
      * @param contrasena Objeto String que representa la contraseña del
      * Administrador.
      */
-    public Administrador(
+    public AdministradorDTO(
             Long id,
             String nombre, 
             String apellidoPaterno, 

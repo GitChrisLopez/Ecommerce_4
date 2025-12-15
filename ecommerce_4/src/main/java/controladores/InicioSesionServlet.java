@@ -2,7 +2,7 @@ package controladores;
 
 import BOs.AdministradorBO;
 import BOs.UsuarioBO;
-import dominio.Administrador;
+import dominio.AdministradorDTO;
 import dominio.ClienteDTO;
 import dominio.UsuarioDTO;
 import java.io.IOException;
@@ -78,7 +78,7 @@ public class InicioSesionServlet extends HttpServlet {
             session.setAttribute("usuarioLogueado", usuarioLogueado);
 
             // se redirecciona según el tipo de usuario (user/admin)
-            if (usuarioLogueado instanceof Administrador) {
+            if (usuarioLogueado instanceof AdministradorDTO) {
                 response.sendRedirect("admin-menu-principal");
             } else if (usuarioLogueado instanceof ClienteDTO) {
                 response.sendRedirect("principal-registrado.jsp");

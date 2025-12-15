@@ -4,7 +4,7 @@
  */
 package controladores.filtros;
 
-import dominio.Administrador;
+import dominio.AdministradorDTO;
 import java.io.IOException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -46,7 +46,7 @@ public class AdminFiltro implements Filter {
             Object usuarioSesion = session != null ? session.getAttribute("usuarioLogueado") : null;
 
             if (usuarioSesion != null) {
-                if (usuarioSesion instanceof Administrador) {
+                if (usuarioSesion instanceof AdministradorDTO) {
                     logueado = true;
                 }
             }

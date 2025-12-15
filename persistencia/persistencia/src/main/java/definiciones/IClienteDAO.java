@@ -9,10 +9,12 @@ import excepciones.PersistenciaException;
  */
 public interface IClienteDAO {
 
-    public Cliente obtenerClientePorId(Long idCliente) throws PersistenciaException;
+    public abstract Cliente iniciarSesion(String correo, String contrasenia);
+            
+    public abstract Cliente obtenerClientePorId(Long idCliente) throws PersistenciaException;
 
-    public Cliente editarCliente(Cliente cliente) throws PersistenciaException;
+    public abstract Cliente editarCliente(Cliente cliente) throws PersistenciaException;
     
-    public Cliente obtenerClientePorCorreo(String correo) throws PersistenciaException;
+    public abstract Cliente obtenerClientePorCorreo(String correo) throws PersistenciaException;
     
 }
