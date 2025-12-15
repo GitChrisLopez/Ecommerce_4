@@ -5,6 +5,7 @@
 package DAOs;
 
 import com.persistencia.ManejadorConexiones;
+import definiciones.IUsuarioDAO;
 import entidades.Administrador;
 import entidades.Usuario;
 import jakarta.persistence.EntityManager;
@@ -15,7 +16,7 @@ import jakarta.persistence.TypedQuery;
  *
  * @author chris
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements IUsuarioDAO{
 
     public Usuario iniciarSesion(String correo, String contrasenia) {
         EntityManager em = ManejadorConexiones.getEntityManager();

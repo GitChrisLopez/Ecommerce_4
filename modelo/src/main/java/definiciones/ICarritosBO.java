@@ -1,6 +1,7 @@
 
 package definiciones;
 
+import dominio.CarritoDTO;
 import excepciones.NegocioException;
 
 
@@ -15,5 +16,7 @@ public interface ICarritosBO {
     public abstract void eliminarProductoCarrito(Long idCliente, Long idProducto) throws NegocioException;
     
     public abstract void eliminarCarrito(Long idCliente) throws NegocioException;
+    
+    public abstract CarritoDTO consultarCarrito(Long idCliente) throws NegocioException;
     
 }

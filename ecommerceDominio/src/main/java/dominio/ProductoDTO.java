@@ -73,7 +73,7 @@ public class ProductoDTO {
      * Objeto List<ProductoCarrito> que representa los productosCarrito que
  hacen referencia a este ProductoDTO.
      */
-    private List<ProductoCarrito> productosCarrito;
+    private List<ProductoCarritoDTO> productosCarrito;
 
     /**
      * Objeto List<ProductoPedido> que representa los productosPedido que hacen
@@ -107,7 +107,7 @@ public class ProductoDTO {
             FormatoDTO formato, 
             BigDecimal precio, 
             LibroDTO libro, 
-            List<ProductoCarrito> productosCarrito, 
+            List<ProductoCarritoDTO> productosCarrito, 
             List<ProductoPedidoDTO> productosPedido) {
         
         this.id = id;
@@ -253,7 +253,7 @@ public class ProductoDTO {
      * Obtiene la lista de ProductoCarrito que hacen referencia a este producto.
      * @return La lista de items del carrito asociados al producto.
      */
-    public List<ProductoCarrito> getProductosCarrito() {
+    public List<ProductoCarritoDTO> getProductosCarrito() {
         return productosCarrito;
     }
 
@@ -261,7 +261,7 @@ public class ProductoDTO {
      * Establece la lista de ProductoCarrito que hacen referencia a este producto.
      * @param productosCarrito La nueva lista de items del carrito.
      */
-    public void setProductosCarrito(List<ProductoCarrito> productosCarrito) {
+    public void setProductosCarrito(List<ProductoCarritoDTO> productosCarrito) {
         this.productosCarrito = productosCarrito;
     }
 

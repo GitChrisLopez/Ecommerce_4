@@ -83,4 +83,21 @@ public class MapperLibro {
                       .map(MapperLibro::toEntity)
                       .collect(Collectors.toList());
     }
+    
+    public static LibroDTO toDtoBasico(Libro entity) {
+        if (entity == null) {
+            return null;
+        }
+        
+        LibroDTO dto = new LibroDTO();
+        dto.setId(entity.getId());
+        dto.setTitulo(entity.getTitulo());
+        
+        if (entity.getAutor() != null) {
+
+            dto.setAutor(MapperAutor.toDto(entity.getAutor())); 
+        }
+        return dto;
+
+    }
 }

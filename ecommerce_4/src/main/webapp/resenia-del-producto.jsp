@@ -14,7 +14,6 @@
         <title>Detalles Producto</title>
         <link rel="stylesheet" href="./styles/styles-detalles-producto.css" />
         <link rel="stylesheet" href="./styles/styles-nav.css" />
-        <script src="js/resenia.js"></script>
     </head>
 
     <body>
@@ -26,10 +25,10 @@
             <main>
                 <div class="producto-container">
                     <div class="info-libro">
-                        <img src="./imgs/morir-en-la-arena.png" alt="Morir en la arena (Andanzas)" />
+                        <img src="" alt="" />
                         <div class="detalles-libro">
-                            <h3>Morir en la arena (Andanzas)</h3>
-                            <label>Autor: Leonardo Padura</label>
+                            <h3></h3>
+                            <label></label>
 
                             <div class="calificacion">
                                 <p>3</p>
@@ -37,19 +36,21 @@
                                 <div class="estrella"></div>
                                 <div class="estrella"></div>
                                 <div class="estrella"></div>
-                    </div>
+                            </div>
 
-                            <p class="p-editorial">Editorial: TusQuets Editores</p>
-                            <p class="p-publicacion">Publicación: 23 de septiembre, 2025</p>
-                            <p class="p-no-paginas">384 Páginas</p>
-                            <p class="p-formato">Tapa blanda</p>
-                            <p class="p-precio">$250.00</p>
-                            <p class="p-stock">3 disponibles</p>
+                            <p class="p-editorial"></p>
+                            <p class="p-publicacion"></p>
+                            <p class="p-no-paginas"></p>
+                            <p class="p-formato"></p>
+                            <p class="p-precio"></p>
+                            <p class="p-stock"></p>
 
-                            <form action="carrito.jsp" class="div-add-cart">
+                            <form id="form-agregar-carrito" class="div-add-cart">
+                                
+                                <input type="hidden" id="product-id" value="${producto.id}">
                                 <label for="product-quantity" class="label-cantidad">Cantidad:</label>
-                                <input type="number" id="product-quantity" class="product-quantity" min="0" max="3" required>
-                                <input type="submit" value="Agregar al carrito" class="btn-add-cart">
+                                <input type="number" id="product-quantity" class="product-quantity" required>
+                                <input type="submit" value="Agregar al carrito" class="btn-add-cart" onclick="agregarProductoCarrito(event)">
                             </form>
                         </div>
                     </div>
@@ -66,9 +67,7 @@
 
                         <div class="resumen">
                             <p>
-                                Narra la historia de Rodolfo, un hombre jubilado cuyo pasado vuelve a acecharlo cuando su hermano Geni,
-                                un asesino convicto, es excarcelado debido a una enfermedad incurable. La trama se desarrolla a lo largo
-                                de una semana, mientras Rodolfo espera la llegada de su hermano a la casa familiar, un evento que reaviva viejos...
+                                
                             </p>
                         </div>
 
@@ -124,4 +123,7 @@
         </div>
     </body>
 
+    <script src="js/consumo-api.js"></script>
+    <script src="js/resenia.js"></script>
+    <script src="js/productos-carrito.js"></script>
 </html>

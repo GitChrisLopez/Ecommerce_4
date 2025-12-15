@@ -1,13 +1,9 @@
 package controladores;
 
-import BOs.AdministradorBO;
 import BOs.UsuarioBO;
 import dominio.AdministradorDTO;
 import dominio.ClienteDTO;
 import dominio.UsuarioDTO;
-import dominio.ClienteDTO;
-import dominio.UsuarioDTO;
-import entidades.Administrador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -58,24 +54,23 @@ public class InicioSesionServlet extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if (accion != null && accion.equals("logout")) {
-            // Invalidar la sesión del servidor (buena práctica aunque uses tokens)
+            // Invalidar Sesión
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();
             }
 
-            // "Matar" la cookie/sesion
-            // Creamos una cookie con el mismo nombre, mismo path, pero valor vacío y vida 0
+            // Matar Cookie x_x
             Cookie jwtCookie = new Cookie("jwtToken", "");
             jwtCookie.setPath("/");
-            jwtCookie.setMaxAge(0); // 0 segundos de vida = X_X
+            jwtCookie.setMaxAge(0);
             response.addCookie(jwtCookie);
 
-            // Redirigir al usuario al inicio (login)
+            // Redirigir
             response.sendRedirect("index.jsp");
 
         } else {
-            // mostrar el formulario
+            // Si entran por GET sin acción, mostrar formulario
             response.sendRedirect("iniciar-sesion.jsp");
         }
     }
@@ -87,26 +82,23 @@ public class InicioSesionServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        // Autenticación con tu BO local
         UsuarioDTO usuarioLogueado = usuarioBO.iniciarSesion(email, password);
 
         if (usuarioLogueado != null) {
-            // generar string token
+            // Generar Token LOCALMENTE
             String token = JwtUtil.generarToken(usuarioLogueado);
 
-            // generar cookie
+            // Crear Cookie con el Token
             Cookie jwtCookie = new Cookie("jwtToken", token);
             jwtCookie.setHttpOnly(true);
-            jwtCookie.setSecure(false);
+            jwtCookie.setSecure(false); // true si usas HTTPS
             jwtCookie.setPath("/");
-            jwtCookie.setMaxAge(60 * 60 * 24);
+            jwtCookie.setMaxAge(60 * 60 * 24); // 1 día
 
-            // enviar la cookie
             response.addCookie(jwtCookie);
 
-            // guarda el usuario en la sesión para que el AdminFiltro lo encuentre
-            // HttpSession session = request.getSession();
-            // session.setAttribute("usuarioLogueado", usuarioLogueado);
-            // Mantienes tu redirección normal
+            // Redirección por rol
             if (usuarioLogueado instanceof AdministradorDTO) {
                 response.sendRedirect("admin-menu-principal");
             } else if (usuarioLogueado instanceof ClienteDTO) {
@@ -117,10 +109,5 @@ public class InicioSesionServlet extends HttpServlet {
         } else {
             response.sendRedirect("iniciar-sesion.jsp?error=true");
         }
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Servlet de Login General (Admin y Cliente)";
     }
 }

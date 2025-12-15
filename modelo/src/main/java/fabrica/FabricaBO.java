@@ -16,6 +16,7 @@ import DAOs.LibrosDAO;
 import DAOs.PedidoDAO;
 import DAOs.ProductosDAO;
 import DAOs.ReseniaDAO;
+import DAOs.UsuarioDAO;
 import definiciones.IAutoresBO;
 import definiciones.IAutoresDAO;
 import definiciones.ICategoriasBO;
@@ -32,6 +33,7 @@ import definiciones.IProductosBO;
 import definiciones.IProductosDAO;
 import definiciones.IReseniaBO;
 import definiciones.IReseniaDAO;
+import definiciones.IUsuarioDAO;
 
 /**
  * Fábrica de BO.
@@ -111,8 +113,9 @@ public class FabricaBO {
     public static IClienteBO obtenerClientesBO(){
         
         IClienteDAO clientesDAO = new ClienteDAO();
+        IUsuarioDAO usuariosDAO = new UsuarioDAO();
         
-        IClienteBO clientesBO = new ClienteBO(clientesDAO);
+        IClienteBO clientesBO = new ClienteBO(clientesDAO, usuariosDAO);
         
         return clientesBO;
     }

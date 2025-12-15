@@ -35,7 +35,7 @@ public class CarritoDTO {
      * Objseto List<ProductoCarrito> que representa una lista de ProductosCarrito que
  se han agregado al CarritoDTO.
      */
-    private List<ProductoCarrito> productosCarrito;
+    private List<ProductoCarritoDTO> productosCarrito;
 
     /**
      * Constructor vacío.
@@ -54,7 +54,7 @@ public class CarritoDTO {
     public CarritoDTO(
             Long id, 
             ClienteDTO cliente,
-            List<ProductoCarrito> productosCarrito) {
+            List<ProductoCarritoDTO> productosCarrito) {
         
         this.id = id;
         this.cliente = cliente;
@@ -115,7 +115,7 @@ public class CarritoDTO {
      * @return Objeto List<ProductoCarrito> que representa la lista de productos que se han agregado
  al CarritoDTO.
      */
-    public List<ProductoCarrito> getProductosCarrito() {
+    public List<ProductoCarritoDTO> getProductosCarrito() {
         return productosCarrito;
     }
 
@@ -125,7 +125,7 @@ public class CarritoDTO {
      * @param productosCarrito Objeto List<ProductoCarrito> que representa la lista de productos que se han agregado
  al CarritoDTO.
      */
-    public void setProductosCarrito(List<ProductoCarrito> productosCarrito) {
+    public void setProductosCarrito(List<ProductoCarritoDTO> productosCarrito) {
         this.productosCarrito = productosCarrito;
     }
 

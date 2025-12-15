@@ -5,10 +5,12 @@ import BOs.CarritosBO;
 import BOs.ClienteBO;
 import DAOs.CarritosDAO;
 import DAOs.ClienteDAO;
+import DAOs.UsuarioDAO;
 import definiciones.ICarritosBO;
 import definiciones.ICarritosDAO;
 import definiciones.IClienteBO;
 import definiciones.IClienteDAO;
+import definiciones.IUsuarioDAO;
 
 /**
  *
@@ -28,8 +30,9 @@ public class FabricaBO {
     public static IClienteBO obtenerClientesBO(){
         
         IClienteDAO clienteDAO = new ClienteDAO();
+        IUsuarioDAO usuariosDAO = new UsuarioDAO();
         
-        IClienteBO clienteBO = new ClienteBO(clienteDAO);
+        IClienteBO clienteBO = new ClienteBO(clienteDAO, usuariosDAO);
         
         return clienteBO;
         
