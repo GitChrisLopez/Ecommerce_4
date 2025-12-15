@@ -13,6 +13,7 @@
         <title>Método de Pago</title>
         <link rel="stylesheet" href="./styles/styles-metodo-pago.css" />
         <link rel="stylesheet" href="./styles/styles-nav.css" />
+        <script src="/js/pago-pedido.js"></script>
     </head>
 
     <body>

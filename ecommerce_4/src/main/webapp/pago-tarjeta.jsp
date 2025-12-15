@@ -13,6 +13,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./styles/styles-pago-tarjeta.css">
         <link rel="stylesheet" type="text/css" href="./styles/styles-nav.css">
+        <script src="/js/transferencia.js"></script>
     </head>
 
     <body>
@@ -57,7 +58,7 @@
 
                                 <div class="pago-tarjeta-btns">
                                     <button type="submit" class="confirmar-pago-btn">Confirmar pago</button>
-                                    <a href="./metodo-pago.jsp" class="cancelar-btn">Cancelar</a>
+                                    <a href="/metodo-pago.jsp" class="cancelar-btn">Cancelar</a>
                                 </div>
 
                             </div>
