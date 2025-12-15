@@ -32,7 +32,7 @@ public class AutenticacionResource {
     
     public AutenticacionResource() {
         
-        FabricaBO.obtenerClientesBO();
+        clientesBO = FabricaBO.obtenerClientesBO();
     }
 
     @POST
@@ -40,7 +40,7 @@ public class AutenticacionResource {
     public Response getJson(AutenticacionClienteDTO autenticacionCliente) {
         
         String correoCliente = autenticacionCliente.getCorreo();
-        String contraseniaCliente = autenticacionCliente.getCorreo();
+        String contraseniaCliente = autenticacionCliente.getContrasenia();
         
         ClienteDTO cliente = clientesBO.iniciarSesion(correoCliente, contraseniaCliente);
         

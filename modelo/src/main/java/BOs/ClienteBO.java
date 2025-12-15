@@ -1,8 +1,8 @@
 package BOs;
 
-import DAOs.UsuarioDAO;
 import definiciones.IClienteBO;
 import definiciones.IClienteDAO;
+import definiciones.IUsuarioDAO;
 import dominio.ClienteDTO;
 import entidades.Cliente;
 import entidades.Usuario;
@@ -17,11 +17,11 @@ import mappers.MapperCliente;
 public class ClienteBO implements IClienteBO {
 
     private IClienteDAO clienteDAO;
-    private UsuarioDAO usuarioDAO;
+    private IUsuarioDAO usuarioDAO;
 
-    public ClienteBO(IClienteDAO clienteDAO) {
+    public ClienteBO(IClienteDAO clienteDAO,IUsuarioDAO usuarioDAO) {
         this.clienteDAO = clienteDAO;
-        this.usuarioDAO = new UsuarioDAO();
+        this.usuarioDAO = usuarioDAO;
     }
 
     public ClienteDTO iniciarSesion(String correo, String contrasenia) {

@@ -31,7 +31,7 @@ public class AutenticacionUtils {
                 .setSubject(idUsuario.toString())
                 .setIssuedAt(ahora)
                 .setExpiration(expiracion)
-                .signWith(SIGNING_KEY) // algoritmo inferido
+                .signWith(SIGNING_KEY)
                 .compact();
     }
 

@@ -1,6 +1,8 @@
 package equipo01.api_ecommerce;
 
+import api.AutenticacionResource;
 import api.CarritosResource;
+import api.ProductosCarritoResource;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import java.util.HashSet;
@@ -19,7 +21,8 @@ public class JakartaRestConfiguration extends Application {
         final Set<Class<?>> classes = new HashSet<>();
         
         classes.add(CarritosResource.class);
-        
+        classes.add(ProductosCarritoResource.class);
+        classes.add(AutenticacionResource.class);
         return classes;
         
     }

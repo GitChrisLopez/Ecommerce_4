@@ -19,20 +19,22 @@ async function apiFetch(endpoint, opciones = {}) {
         // Sesión expirada
         if (response.status === 401) {
             console.warn("Sesión expirada. Redirigiendo...");
-            window.location.href = "login.jsp?mensaje=Tu sesion expiro";
+            
             return null;
         }
 
-        // Uusario sin permiso.
+        // Usuario sin permiso.
         if (response.status === 403) {
             alert("No tienes permisos para realizar esta acción.");
             return null;
         }
+        alert(opciones);
+        alert(endpoint);
 
         // Error inesperado.
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            const mensajeError = errorData.mensaje || "Ocurrió un error inesperado.";
+            const mensajeError = errorData.mensaje || `Error Real: ${response.status}`;
             
             throw new Error(mensajeError);
         }

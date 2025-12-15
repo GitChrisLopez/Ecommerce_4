@@ -125,6 +125,7 @@
         </div>
     </body>
 
-    <script src="./js/resenia.js"></script>
-    <script src="./js/productos-carrito.js"></script>
+    <script src="js/consumo-api.js"></script>
+    <script src="js/resenia.js"></script>
+    <script src="js/productos-carrito.js"></script>
 </html>

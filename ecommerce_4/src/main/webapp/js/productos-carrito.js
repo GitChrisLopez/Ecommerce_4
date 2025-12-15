@@ -15,23 +15,19 @@ async function agregarProductoCarrito() {
         idProducto: parseInt(idProducto),
         cantidad: parseInt(cantidad)
     };
-
-    try {
-        // Se hace fetch
-        const response = await fetch('api/productos-carrito', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include', 
-            body: JSON.stringify(datosProducto)
-        });
-
-        // Se obtiene el resultado.
-        const resultado = await response.json();
+    
+    try{
         
+        const respuesta = await apiFetch('/api_ecommerce/api/productos-carrito', 'POST', datosProducto);
+        
+        if (!respuesta) return; 
+
         window.location.href = "./ver-carrito";
-
-    } catch (error) {
         
-        console.error(error);
+    } catch(error){
+        
+        alert(error);
+        
     }
+    
 }

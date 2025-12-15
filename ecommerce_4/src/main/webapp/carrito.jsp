@@ -48,7 +48,7 @@
             </main>
         </div>
 
-        <script src="./js/consumo-api.js"></script>
-        <script src="./js/carrito.js"></script>
+        <script src="js/consumo-api.js"></script>
+        <script src="js/carrito.js"></script>
     </body>
 </html>

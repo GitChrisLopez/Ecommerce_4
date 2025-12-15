@@ -1,4 +1,4 @@
-package com.equipo01.api_ecommerce.resources;
+package equipo01.api_ecommerce.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

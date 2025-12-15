@@ -87,13 +87,12 @@ public class InicioSesionServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UsuarioDTO usuarioLogueado = usuarioBO.iniciarSesion(email, password);
-
         if (usuarioLogueado != null) {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("usuarioLogueado", usuarioLogueado);
 
-            // Se redirecciona al administrador
+            // Se redirecciona al administrador.
             if (usuarioLogueado instanceof AdministradorDTO) {
 
                 response.sendRedirect("admin-menu-principal");
@@ -105,9 +104,7 @@ public class InicioSesionServlet extends HttpServlet {
 
                 try {
                     
- 
                     AutenticacionClienteDTO autenticacionCliente = new AutenticacionClienteDTO(email, password);
-
                     Gson gson = new Gson();
                     String jsonBody = gson.toJson(autenticacionCliente);
 
@@ -121,30 +118,29 @@ public class InicioSesionServlet extends HttpServlet {
                             .POST(BodyPublishers.ofString(jsonBody))
                             .build();
 
-                    // Se envía la petición.
                     HttpResponse<String> apiResponse = client.send(apiRequest, BodyHandlers.ofString());
 
                     if (apiResponse.statusCode() == 200) {
                         JsonObject jsonResponse = gson.fromJson(apiResponse.body(), JsonObject.class);
-                        if (jsonResponse.has("token")) {
-                            token = jsonResponse.get("token").getAsString();
+                        if (jsonResponse.has("mensaje")) {
+                            token = jsonResponse.get("mensaje").getAsString();
                         }
                     }
 
-                } catch (InterruptedException ex) {
-                    LOG.log(Level.SEVERE, "Error conectando con la API externa", ex);
+                } catch (Exception ex) {
+                    LOG.log(Level.SEVERE, ex.getMessage());
                 }
 
                 // Si se obtuvo el token, se crea la cookie.
                 if (token != null) {
-                    
-                    Cookie jwtCookie = new Cookie(NOMBRE_HEADER_TOKEN, token); 
 
+                    Cookie jwtCookie = new Cookie(NOMBRE_HEADER_TOKEN, token); 
                     jwtCookie.setHttpOnly(true);
                     jwtCookie.setSecure(false);
                     jwtCookie.setPath("/");
                     jwtCookie.setMaxAge(3600);
                     response.addCookie(jwtCookie);
+
                 }
 
                 // Se redirige al cliente.
@@ -170,7 +166,7 @@ public class InicioSesionServlet extends HttpServlet {
         // Se obtiene el puerto.
         int puerto = request.getServerPort();
         
-        return esquema + "://" + servidor + ":" + puerto + "/api/autenticacion";        
+        return esquema + "://" + servidor + ":" + puerto + "/api_ecommerce/api/autenticacion";        
     }
 
 }
