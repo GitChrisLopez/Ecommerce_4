@@ -32,7 +32,9 @@ public class ProductosCarritoResource {
     private static final Logger LOG = Logger.getLogger(ProductosCarritoResource.class.getName());
 
     private final String MENSAJE_PRODUCTO_AGREGADO = "Producto agregado con éxito";
+    private final String MENSAJE_PRODUCTO_ELIMINADO = "Producto elimnado con éxito";
     private final String MENSAJE_ERROR_AGREGAR_PRODUCTO = "Ha ocurrido un error al agregar el producto.";
+    private final String MENSAJE_ERROR_ELIMINAR_PRODUCTO = "Ha ocurrido un error al eliminar el producto.";
     private final String MENSAJE_NO_AUTORIZADO = "No autorizado";
     
     private final String NOMBRE_HEADER_TOKEN = "jwtToken";
@@ -55,6 +57,9 @@ public class ProductosCarritoResource {
         Long idProductoActualizar = productoActualizar.getIdProducto();
         int cantidadActualizar = productoActualizar.getCantidad(); 
         Long idCliente = AutenticacionUtils.extraerIdUsuario(token);
+        
+        System.out.println(productoActualizar.getIdProducto());
+        System.out.println(productoActualizar.getCantidad());
         
         if(idCliente == null){
             
@@ -110,7 +115,7 @@ public class ProductosCarritoResource {
             
             carritosBO.eliminarProductoCarrito(idCliente, idProductoEliminar);
             Response respuestaExito = ResponseUtils.construirResponseExito(
-                    MENSAJE_PRODUCTO_AGREGADO, 
+                    MENSAJE_PRODUCTO_ELIMINADO, 
                     null);
 
             return respuestaExito;
@@ -120,7 +125,7 @@ public class ProductosCarritoResource {
             
             LOG.log(Level.SEVERE, ex.getMessage());
             Response respuestaError = ResponseUtils.construirResponseError(
-                    MENSAJE_ERROR_AGREGAR_PRODUCTO, 
+                    MENSAJE_ERROR_ELIMINAR_PRODUCTO, 
                     Response.Status.BAD_REQUEST);
 
             return respuestaError;

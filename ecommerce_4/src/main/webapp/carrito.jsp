@@ -1,10 +1,5 @@
-<%-- 
-    Document   : carrito
-    Created on : 19 nov 2025, 10:26:26 p.m.
-    Author     : chris
---%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,6 +16,8 @@
                 <%@ include file="/WEB-INF/fragmentos/NavBar.jspf" %>
             </div>
 
+            <input type="hidden" id="clienteIdOculto" value="${idCliente}">
+            
             <main>
                 <div class="area-total-container">
                     <div class="carrito-container">
@@ -29,12 +26,12 @@
                             <div class="carro" id="contenedor-productos">
                                 <p>Cargando tu carrito...</p>
                             </div>
-
+                            
                             <div class="acciones acciones-desktop">
                                 <p class="subtotal">
                                     Subtotal: <span class="precio" id="subtotal-desktop">$0.00</span>
                                 </p>
-                                </div>
+                            </div>
                             
                             <div class="acciones acciones-movil">
                                 <p class="subtotal">

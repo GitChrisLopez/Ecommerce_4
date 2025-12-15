@@ -1,4 +1,6 @@
 
+const API_BASE_URL = window.location.origin + "/api_ecommerce/api/";
+
 async function apiFetch(endpoint, opciones = {}) {
     
     // Configuración por defecto
@@ -10,15 +12,17 @@ async function apiFetch(endpoint, opciones = {}) {
     // Fusionar opciones, utilizando el operador spread.
     const config = {
         ...opciones,
-        headers: { ...headersDefecto, ...opciones.headers }
+        headers: { ...headersDefecto, ...opciones.headers },
+        credentials: 'include'
     };
 
     try {
-        const response = await fetch(endpoint, config);
+        
+        const response = await fetch(API_BASE_URL + endpoint, config);
 
         // Sesión expirada
         if (response.status === 401) {
-            console.warn("Sesión expirada. Redirigiendo...");
+            alert("Sesión expirada. Redirigiendo...");
             
             return null;
         }
@@ -28,13 +32,12 @@ async function apiFetch(endpoint, opciones = {}) {
             alert("No tienes permisos para realizar esta acción.");
             return null;
         }
-        alert(opciones);
-        alert(endpoint);
-
+        
         // Error inesperado.
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            const mensajeError = errorData.mensaje || `Error Real: ${response.status}`;
+            const mensajeError = "Ha ocurrido un error inesperado.";
+            alert(mensajeError);
             
             throw new Error(mensajeError);
         }

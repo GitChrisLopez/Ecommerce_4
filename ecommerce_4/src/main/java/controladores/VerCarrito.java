@@ -55,6 +55,9 @@ public class VerCarrito extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        System.out.println("DEBUG SERVLET: ID Cliente antes del forward: " + request.getAttribute("idCliente"));
+        request.getRequestDispatcher("carrito.jsp").forward(request, response);
+    
         request.getRequestDispatcher("carrito.jsp").forward(request, response);
         
     }

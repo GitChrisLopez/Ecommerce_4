@@ -92,4 +92,38 @@ public class MapperProducto {
                 .map(MapperProducto::toEntity)
                 .collect(Collectors.toList());
     }
+    
+    public static ProductoDTO toDtoBasico(Producto entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        ProductoDTO dto = new ProductoDTO();
+        dto.setId(entity.getId());
+        dto.setUrlImagen(entity.getUrlImagen());
+        
+        // El título del producto está anidado en Libro
+        if (entity.getLibro() != null) {
+            dto.setLibro(MapperLibro.toDtoBasico(entity.getLibro()));
+        }
+        
+        return dto;
+    }
+
+    /**
+     * Convierte un objeto Entidad Producto a un objeto Entidad Producto (solo referencia ID)
+     * para evitar la serialización del objeto completo cuando solo se necesita una FK.
+     *
+     * @param id El ID del Producto.
+     * @return La entidad Producto con solo el ID seteado.
+     */
+    public static Producto toEntityReference(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Producto entity = new Producto();
+        entity.setId(id);
+        return entity;
+    }
+    
 }

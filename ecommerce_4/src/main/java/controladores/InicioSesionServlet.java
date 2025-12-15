@@ -122,8 +122,8 @@ public class InicioSesionServlet extends HttpServlet {
 
                     if (apiResponse.statusCode() == 200) {
                         JsonObject jsonResponse = gson.fromJson(apiResponse.body(), JsonObject.class);
-                        if (jsonResponse.has("mensaje")) {
-                            token = jsonResponse.get("mensaje").getAsString();
+                        if (jsonResponse.has("data")) {
+                            token = jsonResponse.get("data").getAsString();
                         }
                     }
 

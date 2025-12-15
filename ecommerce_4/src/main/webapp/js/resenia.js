@@ -48,6 +48,7 @@ async function cargarDetalleProducto(idProducto) {
 }
 
 function mostrarDetallesProducto(producto) {
+
     document.querySelector('.info-libro img').src = producto.urlImagen;
     document.querySelector('.detalles-libro h3').textContent = producto.libro.titulo;
     
@@ -60,7 +61,6 @@ function mostrarDetallesProducto(producto) {
     const fechaPublicacion = document.querySelector('.p-publicacion');
     fechaPublicacion.textContent = `Publicación: ${formatearFecha(producto.libro.fechaPublicacion)}`;
 
-    
     document.querySelector('.p-no-paginas').textContent = `${producto.numeroPaginas} Páginas`;
     document.querySelector('.p-formato').textContent = producto.formato.toString();
     document.querySelector('.p-precio').textContent = `$${parseFloat(producto.precio).toFixed(2)}`;
@@ -69,10 +69,14 @@ function mostrarDetallesProducto(producto) {
     const inputCantidad = document.getElementById('product-quantity');
     inputCantidad.max = producto.stock;
 
-    
     const sinopsis = document.querySelector('.resumen p');
     sinopsis.textContent = producto.libro.sinopsis;
 
+    const inputProductId = document.getElementById('product-id');
+    if (inputProductId) {
+        inputProductId.value = producto.id;
+    }
+    
 }
 
 async function cargarResenias(idProducto) {
@@ -99,6 +103,7 @@ async function cargarResenias(idProducto) {
             const divResenia = crearReseniaIndividual(resenia);
             contenedorResenias.appendChild(divResenia);
         });
+        
     } catch (error) {
         console.error('Error:', error);
     }

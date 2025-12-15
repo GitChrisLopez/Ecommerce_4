@@ -3,10 +3,13 @@ package BOs;
 
 import definiciones.ICarritosBO;
 import definiciones.ICarritosDAO;
+import dominio.CarritoDTO;
 import entidades.Carrito;
 import entidades.ProductoCarrito;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -183,6 +186,24 @@ public class CarritosBO implements ICarritosBO{
         } catch (PersistenciaException ex) {
             throw new NegocioException(ex.getMessage());
         }
+        
+    }
+
+    @Override
+    public CarritoDTO consultarCarrito(Long idCliente) throws NegocioException {
+        
+        if(idCliente == null){
+            throw new NegocioException("El Id de cliente no debe ser nulo.");   
+        }
+        
+        CarritoDTO carrito;
+        try {
+            carrito = mappers.MapperCarrito.toDto(carritosDAO.consultarPorIdCliente(idCliente));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+        
+        return carrito;
         
     }
     

@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * Fecha: 15/11/2025
  */
 
-public class ProductoCarrito {
+public class ProductoCarritoDTO {
 
     /**
      * Dato Long que representa el id del ProductoCarrito.
@@ -51,7 +51,7 @@ public class ProductoCarrito {
     /**
      * Constructor vacío.
      */
-    public ProductoCarrito() {
+    public ProductoCarritoDTO() {
     }
 
     /**
@@ -62,7 +62,7 @@ public class ProductoCarrito {
      * @param carrito id del carrito
      * @param precioUnitario precio unitario del productoCarrito
      */
-    public ProductoCarrito(Long id, ProductoDTO producto, CarritoDTO carrito, BigDecimal precioUnitario) {
+    public ProductoCarritoDTO(Long id, ProductoDTO producto, CarritoDTO carrito, BigDecimal precioUnitario) {
         this.id = id;
         this.producto = producto;
         this.carrito = carrito;
