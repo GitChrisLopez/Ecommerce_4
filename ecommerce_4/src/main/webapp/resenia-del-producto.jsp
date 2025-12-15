@@ -14,7 +14,6 @@
         <title>Detalles Producto</title>
         <link rel="stylesheet" href="./styles/styles-detalles-producto.css" />
         <link rel="stylesheet" href="./styles/styles-nav.css" />
-        <script src="js/resenia.js"></script>
     </head>
 
     <body>
@@ -37,7 +36,7 @@
                                 <div class="estrella"></div>
                                 <div class="estrella"></div>
                                 <div class="estrella"></div>
-                    </div>
+                            </div>
 
                             <p class="p-editorial">Editorial: TusQuets Editores</p>
                             <p class="p-publicacion">Publicación: 23 de septiembre, 2025</p>
@@ -46,10 +45,12 @@
                             <p class="p-precio">$250.00</p>
                             <p class="p-stock">3 disponibles</p>
 
-                            <form action="carrito.jsp" class="div-add-cart">
+                            <form id="form-agregar-carrito" class="div-add-cart">
+                                
+                                <input type="hidden" id="product-id" value="${producto.id}">
                                 <label for="product-quantity" class="label-cantidad">Cantidad:</label>
                                 <input type="number" id="product-quantity" class="product-quantity" min="0" max="3" required>
-                                <input type="submit" value="Agregar al carrito" class="btn-add-cart">
+                                <input type="submit" value="Agregar al carrito" class="btn-add-cart" onclick="agregarProductoCarrito()">
                             </form>
                         </div>
                     </div>
@@ -124,4 +125,6 @@
         </div>
     </body>
 
+    <script src="./js/resenia.js"></script>
+    <script src="./js/productos-carrito.js"></script>
 </html>

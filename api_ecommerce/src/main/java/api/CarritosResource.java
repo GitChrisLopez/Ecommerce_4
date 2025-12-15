@@ -3,20 +3,12 @@ package api;
 
 import definiciones.ICarritosBO;
 import dominio.restful.CarritoResponseDTO;
-import dominio.restful.ProductoCarritoActualizarDTO;
-import excepciones.NegocioException;
 import fabrica.FabricaBO;
-import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Path;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.HeaderParam;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import utils.ResponseUtils;
 
 /**
  * REST Web Service
