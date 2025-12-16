@@ -1,174 +1,111 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.querySelector('.lista-pedidos')) {
-        cargarPedidos();
-    }
-    if (document.querySelector('.pedido-container')) {
-        cargarDetallesPedido();
+    cargarResumenPedido();
+
+    const formPedido = document.getElementById('form-crear-pedido');
+    if (formPedido) {
+        formPedido.addEventListener('submit', procesarCreacionPedido);
     }
 });
 
-async function cargarPedidos() {
-    const base = window.location.pathname.split('/')[1];
-    const url = base && base !== 'api' ? `/${base}/api/pedidos` : '/api/pedidos';
-    
-    try {
-        const respuesta = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
-        });
-        
-        const pedidos = await respuesta.json();
-        mostrarPedidos(pedidos);
-        
-    } catch (error) {
-        console.error('Error al cargar pedidos:', error);
-    }
-}
+let totalCalculado = 0;
 
+async function cargarResumenPedido() {
+    const idCliente = document.getElementById('idCliente').value;
+    const contenedor = document.getElementById('contenedor-resumen');
 
-function mostrarPedidos(pedidos) {
-    const listaPedidos = document.querySelector('.lista-pedidos');
-    listaPedidos.innerHTML = '';
-    
-    if (!pedidos || pedidos.length === 0) {
-        listaPedidos.innerHTML = '<p>No tiene pedidos.</p>';
+    if (!idCliente) {
+        window.location.href = "iniciar-sesion.jsp";
         return;
     }
-    
-    pedidos.forEach((pedido) => {
-        const pedidoDiv = crearPedidoIndividual(pedido);
-        listaPedidos.appendChild(pedidoDiv);
-    });
-}
 
-
-function crearPedidoIndividual(pedido) {
-    const div = document.createElement('div');
-    const claseEstado = obtenerTipoEstado(pedido.estado);
-    div.className = `pedido-item ${claseEstado}`;
-    const fecha = formatearFecha(pedido.fecha);
-    
-    div.innerHTML = `
-        <div class="pedido-info">
-            <ul>
-                <li><span>Pedido:</span> #${pedido.numeroUnico || pedido.id}</li>
-                <li><span>Realizado:</span> ${fecha}</li>
-                <li><span>Estado:</span> ${pedido.estado}</li>
-                <li><span>Total:</span> ${formatearPrecio(pedido.total)}</li>
-            </ul>
-        </div>
-        <div class="pedido-btn">
-            <a href="./detalles-pedido.jsp?id=${pedido.id}" class="ver-detalles-btn">Detalles</a>
-        </div>
-    `;
-    return div;
-}
-
-function obtenerTipoEstado(estado) {
-    const estados = {
-        'PENDIENTE': 'pedido-pendiente',
-        'ENVIADO': 'pedido-enviado',
-        'ENTREGADO': 'pedido-entregado',
-        'CANCELADO': 'pedido-cancelado'
-    };
-    return estados[estado];
-}
-
-async function cargarDetallesPedido() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idPedido = urlParams.get('id');
-    const base = window.location.pathname.split('/')[1];
-    const url = base && base !== 'api' ? `/${base}/api/pedidos/${idPedido}`: `/api/pedidos/${idPedido}`;
-    
     try {
-        const respuesta = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
+        // 1. Obtenemos el carrito actual
+        const carrito = await apiFetch(`carritos?idCliente=${idCliente}`, 'GET');
+
+        if (!carrito || !carrito.productos || carrito.productos.length === 0) {
+            contenedor.innerHTML = "<p>No hay productos en el pedido.</p>";
+            return;
+        }
+
+        let html = '';
+        totalCalculado = 0;
+
+        // 2. Generamos el HTML del resumen
+        carrito.productos.forEach(item => {
+            const subtotal = item.precio * item.cantidad;
+            totalCalculado += subtotal;
+
+            html += `
+                <div class="libro-detalles">
+                    <p>
+                        ${item.titulo} (x${item.cantidad})
+                        <span class="espacio">----------------------------</span>
+                        <span class="costo">$${subtotal.toFixed(2)}</span>
+                    </p>
+                </div>
+            `;
         });
-        
-        const pedido = await respuesta.json();
-        mostrarDetallesPedido(pedido);
-        
-    } catch (error) {
-        console.error('Error al cargar detalles del pedido:', error);
-    }
-}
 
-
-function mostrarDetallesPedido(pedido) {
-    const container = document.querySelector('.pedido-container');
-    const fecha = formatearFecha(pedido.fecha);
-    const metodoPago = formatearMetodoPago(pedido.metodoPago);
-    const total = formatearPrecio(pedido.total);
-    
-    const infoPedido = container.querySelector('.info-pedido');
-    if (infoPedido) {
-        infoPedido.innerHTML = `
-            <p><span>Número de pedido:</span> ${pedido.numeroUnico}</p>
-            <p><span>Fecha del pedido:</span> ${fecha}</p>
-            <p><span>Estado:</span> ${pedido.estado}</p>
-            <p><span>Método de pago:</span> ${metodoPago}</p>
-            <p><span>Total del pedido:</span> ${total} MXN</p>
+        html += `
+            <hr />
+            <div class="linea total">
+                <p>
+                    <strong>
+                        Total
+                        <span class="espacio">---------------------------------------------------------</span>
+                        <span class="costo">$${totalCalculado.toFixed(2)}</span>
+                    </strong>
+                </p>
+            </div>
         `;
+
+        contenedor.innerHTML = html;
+
+        // Opcional: Si tienes una API de direcciones, podrías cargar la dirección por defecto aquí
+        // cargarDireccionPredeterminada(idCliente);
+
+    } catch (error) {
+        console.error("Error al cargar resumen:", error);
+        contenedor.innerHTML = "<p>Error al cargar el resumen del pedido.</p>";
     }
-    mostrarProductosPedido(pedido.productosPedido, container);
 }
 
-function mostrarProductosPedido(productos, container) {
-    const productosContainer = container.querySelector('.productos-container');
-    
-    productosContainer.innerHTML = '';
- 
-    productos.forEach((producto) => {
-        const productoDiv = crearProductoIndividual(producto);
-        productosContainer.appendChild(productoDiv);
-    });
-}
+async function procesarCreacionPedido(event) {
+    event.preventDefault(); // Evita recarga
 
-function crearProductoIndividual(producto) {
-    const div = document.createElement('div');
-    div.className = 'producto-pedido-item';
-    
-    const productoDTO = producto.producto;
-    const libro = productoDTO.libro;
-    const tituloLibro = libro.titulo;
-    const autor = libro.autor;
-    const nombreAutor = `${autor.nombre || ''} ${autor.apellidoPaterno || ''} ${autor.apellidoMaterno || ''}`.trim();
-    const urlImagen = productoDTO.urlImagen;
-    
-    div.innerHTML = `
-        <div class="libro-container">
-            <img src="${urlImagen}" alt="${tituloLibro}">
-        </div>
-        <div class="info-producto-pedido">
-            <h3 class="titulo-libro">${tituloLibro}</h3>
-            <p class="autor-libro">${nombreAutor}</p>
-            <p class="cantidad-producto">Cantidad: ${producto.cantidad}</p>
-            <p class="precio-producto">Precio unitario: ${formatearPrecio(producto.precioUnitario)}</p>
-        </div>
-    `;
-    return div;
-}
+    const idCliente = document.getElementById('idCliente').value;
+    const direccionInput = document.getElementById('direccion');
+    const direccion = direccionInput.value.trim();
 
-
-function formatearFecha(fecha) {
-    return fecha[2] + '/' + fecha[1] + '/' + fecha[0];
-}
-
-function formatearMetodoPago(metodoPago) {
-    if (metodoPago.cuatroDigitos !== undefined || metodoPago.bancoEmisor !== undefined) {
-        return 'Transferencia';
+    // Validación básica
+    if (!direccion) {
+        alert("Por favor selecciona una dirección de envío antes de continuar.");
+        return;
     }
-    if (metodoPago.numero !== undefined || metodoPago.nombreTitular !== undefined) {
-        return 'Tarjeta';
-    }
-    return 'Contra Entrega';
-}
 
-function formatearPrecio(precio) {
-    const num = Number(precio);
-    return `$${num.toFixed(2)}`;
+    const datosPedido = {
+        idCliente: parseInt(idCliente),
+        direccion: direccion,
+        total: totalCalculado,
+        metodoPago: "PENDIENTE" // Se definirá en la siguiente pantalla, pero la BD lo requiere
+    };
+
+    try {
+        // 3. Enviamos la petición POST a la API para crear el pedido
+        // Asegúrate que tu PedidosResource.java tenga un @POST que acepte este JSON
+        const respuesta = await apiFetch('pedidos', 'POST', datosPedido);
+
+        if (respuesta && respuesta.id) {
+            console.log("Pedido creado con ID:", respuesta.id);
+
+            // 4. AQUÍ ESTÁ LA SOLUCIÓN: Redirigimos llevando el ID generado
+            window.location.href = `metodo-pago.jsp?id=${respuesta.id}`;
+        } else {
+            throw new Error("La API no devolvió el ID del pedido.");
+        }
+
+    } catch (error) {
+        console.error("Error creando pedido:", error);
+        alert("Hubo un error al crear el pedido: " + error.message);
+    }
 }

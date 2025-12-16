@@ -11,8 +11,8 @@
     <head>
         <meta charset="UTF-8" />
         <title>Confirmación Pedido</title>
-        <link rel="stylesheet" href="./styles/styles-proceder-pago.css" />
-        <link rel="stylesheet" href="./styles/styles-nav.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles-proceder-pago.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles-nav.css" />
     </head>
 
     <body>
@@ -21,38 +21,20 @@
                 <%@ include file="/WEB-INF/fragmentos/NavBar.jspf" %>
             </div>
 
+            <input type="hidden" id="idCliente" value="${sessionScope.usuarioLogueado.id}">
+
             <div class="c2">
                 <main>
                     <div class="pago-container">
-                        <h3>Artículos</h3>
+                        <h3>Resumen del Pedido</h3>
 
-                        <div class="resumen-compra">
-                            <div class="libro-detalles">
-                                <p>
-                                    Morir en la arena (Andanzas)
-                                    <span class="espacio">----------------------------</span>
-                                    <span class="costo">$300.00 MXN</span>
-                                </p>
-                            </div>
-
-                            <hr />
-
-                            <div class="linea total">
-                                <p>
-                                    <strong>
-                                        Total
-                                        <span class="espacio">
-                                            ---------------------------------------------------------
-                                        </span>
-                                        <span class="costo">$300.00 MXN</span>
-                                    </strong>
-                                </p>
-                            </div>
+                        <div class="resumen-compra" id="contenedor-resumen">
+                            <p>Cargando detalles...</p>
                         </div>
 
-                        <br /><br /><br /><br />
+                        <br /><br />
 
-                        <form action="./metodo-pago.jsp" class="direccion-container">
+                        <form id="form-crear-pedido" class="direccion-container" onsubmit="return false;">
                             <label for="direccion"><strong>Enviar a:</strong></label>
                             <br /><br />
 
@@ -61,29 +43,31 @@
                                 type="text"
                                 id="direccion"
                                 name="direccion"
+                                placeholder="Seleccione una dirección..."
                                 readonly
+                                required
                                 />
 
                             <br /><br />
 
                             <div class="botones-direccion">
-                                <a href="./direcciones-guardadas.jsp" class="btn-link">
+                                <a href="${pageContext.request.contextPath}/direcciones-guardadas.jsp" class="btn-link">
                                     <button type="button" class="btn-direccion">
                                         Seleccionar dirección
                                     </button>
                                 </a>
 
-                                <input
-                                    type="submit"
-                                    class="btn-realizar-pedido"
-                                    value="Realizar pedido"
-                                    />
+                                <button type="submit" class="btn-realizar-pedido">
+                                    Confirmar y Pagar
+                                </button>
                             </div>
                         </form>
                     </div>
                 </main>
             </div>
         </div>
+
+        <script src="${pageContext.request.contextPath}/js/consumo-api.js"></script>
+        <script src="${pageContext.request.contextPath}/js/pedido.js"></script>
     </body>
 </html>
-
