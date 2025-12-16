@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controladores.filtros;
 
 import io.jsonwebtoken.Claims;
@@ -16,7 +13,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import utils.JwtUtil;
+import utils.AutenticacionUtils;
 
 /**
  *
@@ -60,7 +57,7 @@ public class AutenticacionFiltro implements Filter {
         }
 
         // Validar el token con JwtUtil
-        Claims claims = JwtUtil.validarToken(token);
+        Claims claims = AutenticacionUtils.validarToken(token);
 
         if (claims == null) {
             // Token inválido

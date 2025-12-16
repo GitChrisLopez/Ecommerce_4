@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
-import utils.JwtUtil;
 import utils.AutenticacionUtils;
 
 /**
@@ -73,7 +72,7 @@ public class AdminFiltro implements Filter {
         }
 
         // Validar el token y obtener Rol
-        Claims claims = JwtUtil.validarToken(token);
+        Claims claims = AutenticacionUtils.validarToken(token);
 
         if (claims == null) {
             // Token inválido/expirado -> Login

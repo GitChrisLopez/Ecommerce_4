@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import utils.JwtUtil;
+import utils.AutenticacionUtils;
 
 /**
  * Servlet para autenticar al administrador.
@@ -87,14 +87,14 @@ public class InicioSesionServlet extends HttpServlet {
 
         if (usuarioLogueado != null) {
             // Generar Token LOCALMENTE
-            String token = JwtUtil.generarToken(usuarioLogueado);
+            String token = AutenticacionUtils.generarToken(usuarioLogueado.getId());
 
             // Crear Cookie con el Token
             Cookie jwtCookie = new Cookie("jwtToken", token);
             jwtCookie.setHttpOnly(true);
-            jwtCookie.setSecure(false); // true si usas HTTPS
+            jwtCookie.setSecure(false);
             jwtCookie.setPath("/");
-            jwtCookie.setMaxAge(60 * 60 * 24); // 1 día
+            jwtCookie.setMaxAge(60 * 60 * 24);
 
             response.addCookie(jwtCookie);
 

@@ -2,7 +2,7 @@
 const API_BASE_URL = window.location.origin + "/api_ecommerce/api/";
 
 async function apiFetch(endpoint, opciones = {}) {
-    
+
     // Configuración por defecto
     const headersDefecto = {
         'Accept': 'application/json',
@@ -37,7 +37,7 @@ async function apiFetch(endpoint, opciones = {}) {
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             const mensajeError = "Ha ocurrido un error inesperado.";
-            alert(mensajeError);
+            alert(response.status);
             
             throw new Error(mensajeError);
         }

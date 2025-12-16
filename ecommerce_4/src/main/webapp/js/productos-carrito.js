@@ -9,9 +9,9 @@ async function agregarProductoCarrito(event) {
     
     event.preventDefault();
     
-    const idProducto = document.getElementById("product-id").value;
-    const cantidad = document.getElementById("product-quantity").value;
-
+    const idProducto = document.getElementById('product-id').value;
+    const cantidad = document.getElementById('product-quantity').value;
+    
     const parsedId = parseInt(idProducto);
     const parsedCantidad = parseInt(cantidad);
     
@@ -21,7 +21,6 @@ async function agregarProductoCarrito(event) {
         cantidad: parseInt(cantidad)
     };
     
-    
     try{
         
         const opcionesDePeticion = {
@@ -30,7 +29,7 @@ async function agregarProductoCarrito(event) {
         };
         
         const respuesta = await apiFetch('productos-carrito', opcionesDePeticion);
-        
+
         if (!respuesta) return; 
 
         const contextPath = window.location.pathname.split('/')[1] || '';

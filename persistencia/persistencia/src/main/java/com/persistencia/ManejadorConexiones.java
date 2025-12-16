@@ -1,6 +1,7 @@
 
 package com.persistencia;
 
+import entidades.Libro;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,6 +62,10 @@ public class ManejadorConexiones {
 
 
         emFactory = Persistence.createEntityManagerFactory(nombreUnidad, propiedadesFiltradas);
+        
+//        if (conexionTest) {
+//            propiedadesFiltradas.put("jakarta.persistence.schema-generation.database.action", "drop-and-create");
+//        }
         
         if (conexionTest) {
             poblarBaseDeDatos();

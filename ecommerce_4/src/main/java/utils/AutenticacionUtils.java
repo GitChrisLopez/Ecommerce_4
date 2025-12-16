@@ -2,6 +2,7 @@
 package utils;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -46,6 +47,18 @@ public class AutenticacionUtils {
             return Long.parseLong(claims.getSubject());
 
         } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public static Claims validarToken(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(SIGNING_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (JwtException e) {
             return null;
         }
     }

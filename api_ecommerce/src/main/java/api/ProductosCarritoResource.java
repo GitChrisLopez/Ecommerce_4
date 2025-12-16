@@ -58,8 +58,6 @@ public class ProductosCarritoResource {
         int cantidadActualizar = productoActualizar.getCantidad(); 
         Long idCliente = AutenticacionUtils.extraerIdUsuario(token);
         
-        System.out.println(productoActualizar.getIdProducto());
-        System.out.println(productoActualizar.getCantidad());
         
         if(idCliente == null){
             
@@ -86,7 +84,7 @@ public class ProductosCarritoResource {
             Response respuestaError = ResponseUtils.construirResponseError(
                     MENSAJE_ERROR_AGREGAR_PRODUCTO, 
                     Response.Status.BAD_REQUEST);
-
+            
             return respuestaError;
             
         }
