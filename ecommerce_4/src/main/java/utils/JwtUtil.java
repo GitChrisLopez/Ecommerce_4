@@ -19,12 +19,14 @@ import dominio.UsuarioDTO;
  */
 public class JwtUtil {
 
+    private static final String CLAVE =
+        "ClaveEcommerceEquipo04ClaveEcommerceEquipo04ClaveEcommerceEquipo04";
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final long TIEMPO_EXPIRACION = 86400000; // 1 día
 
     public static String generarToken(UsuarioDTO usuario) {
         return Jwts.builder()
-                .setSubject(usuario.getCorreo())
+                .setSubject(String.valueOf(usuario.getId()))
                 .claim("nombre", usuario.getNombre())
                 .claim("rol", usuario.getClass().getSimpleName())
                 .setIssuedAt(new Date())

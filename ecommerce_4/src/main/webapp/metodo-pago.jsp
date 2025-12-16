@@ -1,6 +1,6 @@
 <%-- 
-    Document   : carrito
-    Created on : 19 nov 2025, 10:26:26 p.m.
+    Document   : metodo-pago
+    Created on : 19 nov 2025
     Author     : chris
 --%>
 
@@ -11,9 +11,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>Método de Pago</title>
-        <link rel="stylesheet" href="./styles/styles-metodo-pago.css" />
-        <link rel="stylesheet" href="./styles/styles-nav.css" />
-        <script src="/js/pago-pedido.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles-metodo-pago.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles-nav.css" />
+
+        <script src="${pageContext.request.contextPath}/js/pago-pedido.js"></script>
     </head>
 
     <body>
@@ -31,7 +32,9 @@
                         <br /><br />
                         <div class="metodos-pago">
                             <div class="pago-detalles"></div>
-                            <form action="./pedido-realizado-exitosamente.jsp">
+
+                            <form id="form-metodo-pago" onsubmit="return false;">
+
                                 <div class="radio-btn-opciones">
 
                                     <label class="container">
@@ -70,9 +73,10 @@
                                 <br /><br />
 
                                 <div class="div-botones">
-                                    <a href="./carrito.jsp" class="btn-link">
+                                    <a href="${pageContext.request.contextPath}/carrito.jsp" class="btn-link">
                                         <button type="button" class="btn-cancelar">Cancelar pedido</button>
                                     </a>
+
                                     <button type="submit" class="btn-pagar-pedido">Pagar pedido</button>
                                 </div>
 
@@ -84,4 +88,3 @@
         </div>
     </body>
 </html>
-

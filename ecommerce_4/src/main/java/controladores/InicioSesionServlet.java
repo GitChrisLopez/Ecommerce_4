@@ -82,23 +82,23 @@ public class InicioSesionServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // Autenticación con tu BO local
         UsuarioDTO usuarioLogueado = usuarioBO.iniciarSesion(email, password);
 
         if (usuarioLogueado != null) {
-            // Generar Token LOCALMENTE
+            // Generar Token y Cookie (ESTO YA LO TIENES Y ESTÁ BIEN)
             String token = JwtUtil.generarToken(usuarioLogueado);
-
-            // Crear Cookie con el Token
             Cookie jwtCookie = new Cookie("jwtToken", token);
             jwtCookie.setHttpOnly(true);
-            jwtCookie.setSecure(false); // true si usas HTTPS
+            jwtCookie.setSecure(false);
             jwtCookie.setPath("/");
-            jwtCookie.setMaxAge(60 * 60 * 24); // 1 día
-
+            jwtCookie.setMaxAge(60 * 60 * 24);
             response.addCookie(jwtCookie);
 
-            // Redirección por rol
+            // Guardar usuario en la Sesión del Servidor
+            HttpSession session = request.getSession();
+            session.setAttribute("usuarioLogueado", usuarioLogueado);
+
+            // Redirección
             if (usuarioLogueado instanceof AdministradorDTO) {
                 response.sendRedirect("admin-menu-principal");
             } else if (usuarioLogueado instanceof ClienteDTO) {

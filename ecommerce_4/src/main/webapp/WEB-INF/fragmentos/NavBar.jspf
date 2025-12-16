@@ -10,9 +10,11 @@
             <a href="./catalogo.jsp" class="nav-btn" target="_blank">Catálogo</a>
         </li>
         <li>
-            <div class="carrito">
-                <img src="./icons/carrito.png" alt="carrito" class="carrito-icon"> 
-            </div>
+            <a href="${pageContext.request.contextPath}/ver-carrito">
+                <div class="carrito">
+                    <img src="./icons/carrito.png" alt="carrito" class="carrito-icon"> 
+                </div>
+            </a>
         </li>
         <li>
             <button class="user">
@@ -26,7 +28,7 @@
                                 nombre = usuarioLogueado.getNombre().trim();
                             }
                         %>
-                        <p><%= nombre %></p>
+                        <p><%= nombre%></p>
                     </div>
                     <hr class="separador"> 
 

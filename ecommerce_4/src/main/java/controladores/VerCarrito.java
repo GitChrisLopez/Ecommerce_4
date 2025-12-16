@@ -1,6 +1,6 @@
-
 package controladores;
 
+import dominio.UsuarioDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -54,12 +55,20 @@ public class VerCarrito extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        System.out.println("DEBUG SERVLET: ID Cliente antes del forward: " + request.getAttribute("idCliente"));
+
+        HttpSession session = request.getSession(false);
+
+        if (session != null && session.getAttribute("usuarioLogueado") != null) {
+            UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("usuarioLogueado");
+
+            request.setAttribute("idCliente", usuario.getId());
+
+            System.out.println("DEBUG SERVLET: ID Cliente enviado al JSP: " + usuario.getId());
+        } else {
+            System.out.println("DEBUG SERVLET: No hay usuario en sesión.");
+        }
+
         request.getRequestDispatcher("carrito.jsp").forward(request, response);
-    
-        request.getRequestDispatcher("carrito.jsp").forward(request, response);
-        
     }
 
     /**

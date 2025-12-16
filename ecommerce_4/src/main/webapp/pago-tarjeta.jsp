@@ -28,41 +28,13 @@
                     <div class="pago-tarjeta-container">
                         <h1 class="pago-tarjeta-title">Datos de la tarjeta</h1>
 
-                        <form class="pago-tarjeta-form">
+                        <form class="pago-tarjeta-form" action="${pageContext.request.contextPath}/pago-de-pedido" method="POST">
+                            <input type="hidden" name="id" value="<%= request.getParameter("id")%>">
+                            <input type="hidden" name="metodoPago" value="tarjeta">
 
-                            <div class="form-inputs">
-
-                                <div class="form-individual">
-                                    <label for="titular">Nombre del titular</label>
-                                    <input type="text" id="titular" name="titular" required>
-                                </div>
-
-                                <div class="form-individual">
-                                    <label for="num-tarjeta">Número de tarjeta</label>
-                                    <input type="number" id="num-tarjeta" name="num-tarjeta" required>
-                                </div>
-
-                                <div class="form-individual">
-                                    <label for="fecha-vencimiento">Fecha de vencimiento</label>
-                                    <input type="number" id="fecha-vencimiento" name="fecha-vencimiento" required>
-                                </div>
-
-                                <div class="form-individual">
-                                    <label for="cvv">CVV</label>
-                                    <input type="number" id="cvv" name="cvv" required>
-                                </div>
-
+                            <div class="pago-tarjeta-btns">
+                                <button type="submit" class="confirmar-pago-btn">Confirmar pago</button>
                             </div>
-
-                            <div class="form-btns">
-
-                                <div class="pago-tarjeta-btns">
-                                    <button type="submit" class="confirmar-pago-btn">Confirmar pago</button>
-                                    <a href="/metodo-pago.jsp" class="cancelar-btn">Cancelar</a>
-                                </div>
-
-                            </div>
-
                         </form>
 
                     </div>
