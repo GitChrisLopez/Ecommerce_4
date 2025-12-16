@@ -33,6 +33,9 @@
     --bg-color-red-light: #FF9999;
     
     --bg-color-blue:#4263AA;
+    
+    --bg-color-error:#FF9F91;
+    --color-error-text:#591309;
 }
 
 body{

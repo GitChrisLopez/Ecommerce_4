@@ -1,5 +1,4 @@
 
-
 :root{
 
     --color-registered-container:#E3E3E3;
@@ -18,7 +17,7 @@ body{
 
 main{
     display: flex;
-    background-color: white;
+    background-color: var(--lighter-grey);
     height: auto;
     min-height: 100vh;
 }
@@ -29,6 +28,7 @@ input{
 
 .container-registered{
     margin: 5%;
+    margin-left: 130px;
     display: flex;
     flex-direction: column;
     height: 90vh;
@@ -46,6 +46,18 @@ input{
     width: 100%;
 }
 
+.form-search{
+    width: 100%;
+    display: flex;
+    
+}
+
+.search-bar button{
+    background: none;
+    border:none;
+    padding:0;
+}
+
 .search-bar input{
     cursor: pointer;
     width: 30%;
@@ -59,7 +71,7 @@ input{
 
 .search-bar input:focus{
     width: 100%;
-    
+
 }
 
 .search-bar input::placeholder{
@@ -88,7 +100,6 @@ input{
 
 
 .container-list label{
-    cursor: pointer;
     display: flex;
     flex-direction: row;
     background-color: var(--color-registered-container);
@@ -100,37 +111,42 @@ input{
 
 .container-list label:hover{
 
-    background-color: var(--color-registered-container-hover); 
+    background-color: var(--color-registered-container-hover);
 }
 
 .container-list input:checked + label {
-  background-color: black;
-  color: white;
-  cursor: default;
+    background-color: black;
+    color: white;
+    cursor: default;
 }
 
 .container-list input:checked + label img {
-  filter:invert(1);
+    filter:invert(1);
 }
 
 .container-list p{
 
     margin-right: auto;
-    
-}
 
+}
 
 .container-list img{
 
     width: 40px;
     height: 40px;
-    transition: 0.1s;   
+    transition: 0.1s;
 }
 
 .container-list img:hover{
     cursor: pointer;
     filter:invert(1);
-    
+
+}
+
+.button-edition{
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .buttons{
@@ -142,6 +158,7 @@ input{
     padding-right: 10%;
     padding-top:5%;
     background-color: white;
+    border-radius: 20px;
 }
 
 .buttons input{
@@ -150,6 +167,7 @@ input{
     font-weight: 500;
     border-radius: 10px;
     border: 1px solid black;
+    margin: 10px;
 }
 
 .button-add{
@@ -185,7 +203,7 @@ input{
     font-size: 1rem;
 }
 
-    
+
 .buttons-cancel-save a:first-child input:hover{
     background-color: var(--bg-color-red-light);
 }
@@ -211,12 +229,79 @@ input{
     background-color: var(--add-color);
 
 }
+nav {
+    width: 100px;
+    background-color: var(--bg-color-dark-blue);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed;
+}
+
+.nav-text {
+    display: none;
+}
+
+.nav-links .libros img,
+.nav-links .categorias img,
+.nav-links .editoriales img,
+.nav-links .autores img{
+    width: 80% !important;
+    height: 80% !important;
+    object-fit: contain !important;
+}
+
+.nav-users {
+    order: 4 !important;
+}
+.nav-resenias {
+    order: 2 !important;
+}
+.nav-pedidos {
+    order: 3 !important;
+}
+.nav-pagos {
+    order: 5 !important;
+}
+.nav-perfil {
+    order: 1 !important;
+}
+
+.nav-links .users,
+.nav-links .resenias,
+.nav-links .pedidos,
+.nav-links .payments,
+.nav-links .catalogo,
+.nav-links .carrito,
+.nav-links .home,
+.nav-links .user,
+.nav-links .libros,
+.nav-links .categorias,
+.nav-links .editoriales,
+.nav-links .autores {
+    width: 60px !important;
+    height: 60px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+nav > a .home {
+    width: 60px !important;
+    height: 60px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px !important;
+}
 
 @media (min-width: 770px) {
-    
     main{
         flex-direction: column;
     }
+    
     body{
         flex-direction: column;
         font-size: 1.2rem;
@@ -237,6 +322,15 @@ input{
         color: gray;
     }
 
+    nav > a {
+        margin-top:10px;
+        width: 75px !important;
+        height: 1px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
     .title-search img{
         top:16%;
         right: 1%;
@@ -248,6 +342,10 @@ input{
         padding: 0 1%;
     }
 
+    .buttons{
+        padding-right: 0;
+    }
+    
     .buttons input{
         width: 200px;
         border-radius: 20px;
@@ -268,6 +366,91 @@ input{
         height: 70vh;
     }
 
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 30px;
+        background-color: var(--bg-color-dark-blue);
+        z-index: 1000;
+        margin: 0;
+    }
+
+    nav > a:first-child,
+    nav .home {
+        margin-right: auto !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+    }
+
+    .nav-links {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 33px;
+        margin: 0 !important;
+    }
+
+    .nav-perfil {
+        order: 999 !important;
+        margin-left: 10px !important;
+        margin-right: 40px;
+        display: flex !important;
+        align-items: center !important;
+        position: relative !important;
+    }
+
+    .nav-links > li:not(.nav-perfil) img,
+    .nav-links > li:not(.nav-perfil) .varios-icon {
+        display: none !important;
+    }
+
+    .nav-perfil button,
+    .nav-perfil .user {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        width: auto !important;
+        height: auto !important;
+    }
+
+    .nav-perfil img,
+    .nav-perfil .user-icon {
+        display: block !important;
+        width: 45px !important;
+        height: 45px !important;
+        border-radius: 50%;
+        object-fit: contain !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .nav-text {
+        display: inline-block !important;
+        font-size: 16px;
+        color: white;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .nav-links li {
+        width: auto !important;
+        height: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
 
 
 }

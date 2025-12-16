@@ -1,427 +1,498 @@
+
 @import url("./global.css");
 
+
 .body-container {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
 }
 
 main {
-  background-color: var(--lighter-grey);
-  padding: 0;
-  flex: 1;
-}
-
-.filtros {
-  display: none;
-}
-
-.search-box {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.search-box input {
-  flex-grow: 0;
-  padding: 8px;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 50%;
-}
-
-.search-box input::placeholder {
-  color: transparent;
-}
-
-.libros-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  padding: 20px;
-}
-
-.libro {
-  background-color: white;
-  padding: 10px 1px;
-  text-align: center;
-  width: 200px;
-  height: 350px;
-  justify-self: center;
-  border-radius: 20px;
-}
-
-.libro h3 {
-  font-size: 1.2em;
-  margin: 5px;
-  font-weight: 600;
-  word-wrap: break-word;
-}
-
-.libro img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.libro p {
-  font-size: 1em;
-  color: var(--color-text-dark-grey);
-}
-
-.libro .precio {
-  font-weight: bold;
-  font-size: 1.2em;
+    background-color: var(--lighter-grey);
+    padding: 0;
+    flex: 1;
 }
 
 .c2 {
-  flex: 1;
-  display: flex;
+    flex: 1;
+    display: flex;
 }
 
-.options-lookup {
-  display: flex;
-  justify-content: space-between;
-  padding: 30px;
+.filtros { 
+    display: none;
 }
 
-.filtrar-btn {
-  display: flex;
-  flex-direction: row;
-  width: 100px;
-  height: 30px;
-  background-color: white;
-  border: none;
-  padding: 15px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: black;
+.search-box { 
+    width: 100%; 
+    display: flex; 
+    justify-content:
+        flex-end; 
 }
 
-.search-filtros span {
-  font-size: 20px;
-  margin-left: 5px;
-  align-self: center;
+.search-box input { 
+    flex-grow: 0; 
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 50%; 
 }
 
-.search-filtros img {
-  width: 20px;
-  height: 20px;
-  align-self: center;
+.search-box input::placeholder { 
+    color: transparent;
+}
+.libros-container { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 30px; 
+    padding: 20px;
+}
+
+.libro { 
+    background-color: white;
+    padding: 10px 1px;
+    text-align: center; 
+    width: 200px; 
+    height: 350px;
+    justify-self: center;
+    border-radius: 20px;
+}
+
+.libro h3 { 
+    font-size: 1.2em;
+    margin: 5px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.libro img { 
+    width: 100%; 
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.libro p { 
+    font-size: 1em; 
+    color: var(--color-text-dark-grey); 
+}
+
+.libro .precio {
+    font-weight: bold;
+    font-size: 1.2em; 
+}
+
+.options-lookup { 
+    display: flex;
+    justify-content: space-between; 
+    padding: 30px;
+}
+.filtrar-btn { 
+    display: flex; 
+    flex-direction: row;
+    width: 100px;
+    height: 30px; 
+    background-color: white; 
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.search-filtros span { 
+    font-size: 20px;
+    margin-left: 5px; 
+    align-self: center;
+}
+
+.search-filtros img { 
+    width: 20px; 
+    height: 20px; 
+    align-self: center; 
 }
 
 .carrito-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-.precio {
-  font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 .carro {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 90%;
-  max-width: 700px;
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;
+    width: 90%;
+    max-width: 700px;
 }
 
-.carro .info-libro {
-  background-color: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  position: relative;
+.libro-en-carro {
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    
+    display: flex; 
+    align-items: center;
+    
+    position: relative; 
+    
+    gap: 10px;
+    width: 100%;
 }
 
-
-.info-libro img {
-  width: 120px;
-  max-width: 120px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  height: auto;
-}
-
-.acciones-desktop {
-  display: none;
-}
-
-.acciones-movil {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  width: 90%;
-  max-width: 700px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-.subtotal {
-  font-weight: bold;
-  font-size: 20px;
-  color: #333;
-}
-
-.btn-pago {
-  background-color: var(--bg-color-dark-blue, #1e3a8a);
-  border: none;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-pago:hover {
-  background-color: #162d6b;
+.libro-en-carro img {
+    width: 80px; 
+    max-width: 80px;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 8px;
 }
 
 .detalle-libro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-  gap: 4px;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    gap: 4px;
+    justify-content: center;
 }
 
-.detalle-libro h3 {
-  margin: 0;
-  font-size: 1em;
+.titulo-libro {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
 }
 
 .detalle-libro p {
-  margin: 0;
-  font-size: 0.9em;
+    margin: 0;
+    font-size: 0.9em;
 }
 
-.btn-cantidad-mas,
-.btn-cantidad-menos {
-  background-color: rgb(149, 214, 255);
-  border-radius: 30px;
-  width: 30px;
-  height: 30px;
-  border-color: rgb(149, 214, 255);
-  transition: background-color 0.3s ease;
-  font-size: 16px;
-  font-weight: bolder;
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
 }
 
-.btn-cantidad-menos:hover {
-  background-color: #eef2ff;
+.btn-cantidad {
+    background-color: rgb(149, 214, 255);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgb(149, 214, 255);
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    font-weight: bolder;
+    cursor: pointer;
 }
 
-.btn-cantidad-mas:hover {
-  background-color: #eef2ff;
+.btn-cantidad:hover {
+    background-color: #eef2ff;
 }
 
 .input-cantidad {
-  width: 25px;
-  border-radius: 10px;
-  height: 30px;
+    width: 45px; 
+    text-align: center;
+    border-radius: 5px;
+    height: 25px;
+    border: 1px solid #ccc;
+    font-size: 1em; 
+    flex-shrink: 0; 
+}
+
+.acciones-producto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    margin-left: auto; 
+}
+
+.btn-actualizar {
+    order: 1;
+    background-color: var(--bg-color-dark-blue, #1e3a8a);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; 
+    max-width: 100px;
+    text-align: center;
+}
+
+.btn-actualizar:hover {
+    background-color: #162d6b;
+}
+
+.precio-final {
+    order: 2; 
+    font-weight: bold;
+    font-size: 1.1em;
+    min-width: 60px;
+    text-align: right;
 }
 
 .btn-eliminar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: var(--bg-color-dark-red);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 24px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  padding: 0;
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
+    background-color: var(--bg-color-dark-red, #b91c1c);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 0;
 }
 
 .btn-eliminar:hover {
-  background-color: #a00002;
+    background-color: #a00002;
 }
 
-@media (min-width: 770px) {
-  .body-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .catalogo-container {
-    background-color: var(--lighter-grey);
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-
-  .filtros {
-    display: block;
-  }
-
-  .search-box input::placeholder {
-    color: black;
-  }
-
-  .search-box {
-    display: flex;
-    margin-bottom: 20px;
-    justify-content: flex-start;
-  }
-
-  .search-box input {
-    width: 100%;
-  }
-
-  .search-filtros {
+.acciones-desktop {
     display: none;
-  }
+}
 
-  .filtros {
-    margin-bottom: 25px;
-  }
-
-  .filtros h2 {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-  }
-
-  .filtros label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-    color: #555;
-  }
-
-  .libros-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .options-lookup {
-    padding: 0px;
-  }
-
-  .lista-libros {
-    display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: 40px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 0 60px;
-    position: relative;
-    align-items: start;
-  }
-
-  .carro {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    grid-column: 1;
-  }
-
-  .info-libro {
-    display: flex;
-    align-items: flex-start;
-    background-color: white;
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-height: auto;
-    gap: 20px;
-    width: auto;
-    position: relative;
-  }
-
-  .info-libro img {
-    width: 200px;
-    max-width: none;
-    height: auto;
-    border-radius: 15px;
-    flex-shrink: 0;
-  }
-
-  .detalle-libro {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 10px;
-  }
-
-  .detalle-libro h3 {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-
-  .detalle-libro p {
-    font-size: 20px;
-  }
-
-  .precio {
-    font-weight: bold;
-    font-size: 24px;
-  }
-
-  .subtotal {
-    font-weight: bold;
-    font-size: 26px;
-    color: #333;
-  }
-
-  .carro .acciones-desktop {
-    display: none;
-  }
-
-  .lista-libros > .acciones-desktop {
+.acciones-movil {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
     background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subtotal {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+}
+
+.precio {
+    font-weight: bold;
+}
+
+.btn-pago {
+    background-color: var(--bg-color-dark-blue, #1e3a8a);
+    border: none;
     border-radius: 20px;
-    padding: 25px 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    position: sticky;
-    top: 20px;
-    width: 100%;
-    height: auto;
-    grid-column: 2;
-    align-self: start;
-  }
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-  .acciones-desktop .btn-pago {
-    font-size: 18px;
-    padding: 12px 24px;
-    border-radius: 12px;
-  }
+.btn-pago:hover {
+    background-color: #162d6b;
+}
 
-  .acciones-movil {
-    display: none;
-  }
+
+@media (min-width: 770px) {
+    
+    .body-container {
+        display: block;
+    }
+
+
+    .lista-libros {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 40px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        align-items: start;
+        padding: 20px 60px;
+    }
+
+    .carro {
+        grid-column: 1;
+        max-width: none;
+        width: 100%;
+    }
+
+    .libro-en-carro {
+        padding: 25px; 
+        gap: 25px;
+    }
+    
+    .libro-en-carro img {
+        width: 150px; 
+        max-width: 150px;
+    }
+
+    .detalle-libro {
+        gap: 8px;
+    }
+    
+    .titulo-libro {
+        font-size: 1.3em;
+    }
+    
+    .cantidad-control {
+        margin-right: 25px;
+    }
+
+    .btn-cantidad {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .input-cantidad {
+        width: 50px; 
+        height: 30px;
+        font-size: 1em;
+    }
+
+
+    .acciones-producto {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        gap: 25px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .btn-actualizar {
+        order: 1;
+        font-size: 1em;
+        padding: 8px 15px;
+        width: auto;
+        max-width: none;
+    }
+    
+    .precio-final {
+        font-size: 1.3em;
+        min-width: 80px;
+        order: 2;
+        font-weight: bold;
+    }
+
+    .btn-eliminar {
+        position: absolute; 
+        top: 15px; 
+        right: 15px;
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+    
+    .lista-libros > .acciones-desktop {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border-radius: 20px;
+        padding: 25px 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        
+        position: sticky;
+        top: 20px;
+        
+        grid-column: 2; 
+        align-self: start;
+        
+        width: 100%;
+        height: auto;
+    }
+    
+    .subtotal {
+        font-size: 26px;
+    }
+    
+    .acciones-desktop .btn-pago {
+        font-size: 18px;
+        padding: 12px 24px;
+        border-radius: 12px;
+    }
+
+    .acciones-movil {
+        display: none;
+    }
+
+    .filtros {
+        display: block; 
+    }
+    
+    .search-box input::placeholder {
+        color: black;
+    }
+    
+    .search-box {
+        display: flex; 
+        margin-bottom: 20px;
+        justify-content: flex-start; 
+    }
+    
+    .search-box input {
+        width: 100%;
+    }
+    
+    .search-filtros {
+        display: none; 
+    }
+    
+    .filtros {
+        margin-bottom: 25px;
+    }
+    
+    .filtros h2 {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333; 
+    }
+    .filtros label {
+        display: block; 
+        margin-bottom: 5px;
+        font-size: 0.9em;
+        color: #555;
+    }
+    
+    .libros-container {
+        display: grid; 
+        grid-template-columns: 1fr 1fr 1fr; 
+    }
+    
+    .options-lookup { 
+        padding: 0px; 
+    }
+    
+    .libro {
+        background-color: white;
+        padding: 10px 1px;
+        text-align: center;
+        width: 200px;
+        height: 350px;
+        justify-self: center;
+        border-radius: 20px;
+    }
 }

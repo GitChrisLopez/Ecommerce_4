@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-   version="6.0">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+    version="6.0">
+    
+    <welcome-file-list>
+        <welcome-file>login</welcome-file> 
+    </welcome-file-list>
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
+    <servlet>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jakarta.ws.rs.Application</param-name>
+            <param-value>ecommerce_4.JakartaRestConfiguration</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>controladores.filtros.AdminFiltro</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>MensajeEliminacionProducto</filter-name>
+        <filter-class>controladores.filtros.MensajeEliminacionProducto</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MensajeEliminacionProducto</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

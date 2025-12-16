@@ -38,20 +38,22 @@
 
     .aplicar-filtros-btn {
         color: white;
-        background-color: var(--bg-color-grey-purple);
+        background-color: var(--bg-color-dark-blue);
         text-decoration: none; 
         font-size: 20px;
         padding: 10px 30px;
         border: none;
         border-radius: 30px; 
         cursor: pointer;
+        display: inline-block;
     }
-
+    
     .filtros-btn{
         margin-top: 50px;
-        margin-right: 30px;
         padding-bottom: 30px;
-        justify-self: right;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     .search-box input::placeholder {

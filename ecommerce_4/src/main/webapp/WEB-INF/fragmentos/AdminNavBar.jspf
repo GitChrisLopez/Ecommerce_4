@@ -1,0 +1,112 @@
+<nav>
+    <a href="./admin-menu-principal">
+        <div class="home">
+            <img src="./icons/home.svg" alt="home" class="home-icon" />
+        </div>
+    </a>
+
+    <ul class="nav-links">
+        <li class="nav-users">
+            <a href="./admin-usuarios.jsp">
+                <div class="users">
+                    <img src="./icons/users.png" class="users-icon" />
+                    <span class="nav-text">Usuarios</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-resenias">
+            <a href="./admin-mostrar-resenias">
+                <div class="resenias">
+                    <img src="./icons/catalogo.png" class="catalogo-icon" />
+                    <span class="nav-text">Reseñas</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-pedidos">
+            <a href="./admin-mostrar-pedidos">
+                <div class="pedidos">
+                    <img src="./icons/pedidos.png" class="pedidos-icon" />
+                    <span class="nav-text">Pedidos</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-pagos">
+            <a href="./admin-historial-pagos.jsp">
+                <div class="payments">
+                    <img src="./icons/payments.png" class="payments-icon" />
+                    <span class="nav-text">Pagos</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-libros">
+            <a href="./admin-libros-registrados"> <div class="libros">
+                    <img src="./icons/libros.png" class="varios-icon" /> 
+                    <span class="nav-text">Libros</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-categorias">
+            <a href="./admin-categorias-registradas">
+                <div class="categorias">
+                    <img src="./icons/categorias.png" class="varios-icon" /> 
+                    <span class="nav-text">Categorías</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-editoriales">
+            <a href="./admin-editoriales-registradas">
+                <div class="editoriales">
+                    <img src="./icons/editoriales.png" class="varios-icon" />
+                    <span class="nav-text">Editoriales</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-autores">
+            <a href="./admin-autores-registrados">
+                <div class="autores">
+                    <img src="./icons/autores.png" class="varios-icon" /> 
+                    <span class="nav-text">Autores</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-perfil">
+            <button class="user">
+                <img src="./icons/user.png" alt="user" class="user-icon" />
+                <div class="options-user">
+                    <div class="user-nombre">
+                        <p>Carlos Gutiérrez Torres</p>
+                    </div>
+                    <hr class="separador" />
+
+                    <a class="user-option" href="pedidos-realizados.jsp">
+                        <img src="./icons/mis-pedidos.png" class="option-icon" />
+                        <p>Mis Pedidos</p>
+                    </a>
+
+                    <a class="user-option" href="edicion-datos-cuenta.jsp">
+                        <img src="./icons/edition.png" class="option-icon" />
+                        <p>Editar mis datos</p>
+                    </a>
+
+                    <a class="user-option" href="direcciones-guardadas.jsp">
+                        <img src="./icons/direccion.png" class="option-icon" />
+                        <p>Direcciones</p>
+                    </a>
+
+                    <a class="user-option" href="${pageContext.request.contextPath}/login?accion=logout">
+                        <img src="./icons/cerrar-sesion.png" class="option-icon" />
+                        <p>Cerrar sesión</p>
+                    </a>
+                </div>
+            </button>
+        </li>
+    </ul>
+</nav>

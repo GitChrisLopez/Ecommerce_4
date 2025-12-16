@@ -1,0 +1,69 @@
+<nav>
+    <a href="./principal-registrado.jsp">
+        <div class="home">
+            <img src="./icons/home.svg" alt="home" class="home-icon"> 
+        </div>
+    </a>
+
+    <ul class="nav-links">
+        <li>
+            <a href="./catalogo.jsp" class="nav-btn" target="_blank">Catálogo</a>
+        </li>
+        <li>
+            <div class="carrito">
+                <img src="./icons/carrito.png" alt="carrito" class="carrito-icon"> 
+            </div>
+        </li>
+        <li>
+            <button class="user">
+                <img src="./icons/user.png" alt="user" class="user-icon"> 
+                <div class="options-user">
+                    <div class="user-nombre">
+                        <%
+                            dominio.UsuarioDTO usuarioLogueado = (dominio.UsuarioDTO) session.getAttribute("usuarioLogueado");
+                            String nombre = "Usuario";
+                            if (usuarioLogueado != null && usuarioLogueado.getNombre() != null && !usuarioLogueado.getNombre().trim().isEmpty()) {
+                                nombre = usuarioLogueado.getNombre().trim();
+                            }
+                        %>
+                        <p><%= nombre %></p>
+                    </div>
+                    <hr class="separador"> 
+
+                    <a class="user-option" href="pedidos-realizados.jsp">
+                        <img src="./icons/mis-pedidos.png" alt="Pedidos" class="option-icon">
+                        <p>Mis Pedidos</p>
+                    </a>
+
+                    <a class="user-option" href="edicion-datos-cuenta.jsp">
+                        <img src="./icons/edition.png" alt="Editar" class="option-icon">
+                        <p>Editar mis datos</p>
+                    </a>
+
+                    <a class="user-option" href="direcciones-guardadas.jsp">
+                        <img src="./icons/direccion.png" alt="Direcciones" class="option-icon">
+                        <p>Direcciones</p>
+                    </a>
+
+                    <a class="user-option" href="${pageContext.request.contextPath}/login?accion=logout">
+                        <img src="./icons/cerrar-sesion.png" class="option-icon" />
+                        <p>Cerrar sesión</p>
+                    </a>
+
+                </div>
+            </button>
+        </li>
+        <li>
+            <a href="./catalogo.jsp">
+                <div class="catalogo">
+                    <img src="./icons/catalogo.png" alt="catalogo" class="catalogo-icon"> 
+                </div>
+            </a>
+        </li>
+        <li>
+            <div class="pedidos">
+                <img src="./icons/pedidos.png" alt="pedidos" class="pedidos-icon"> 
+            </div>
+        </li>
+    </ul>
+</nav>

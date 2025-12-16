@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+      <persistence-unit name="equipo04_ecommerce_persistencia_jar_1.0PU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>entidades.Administrador</class>
+        <class>entidades.Autor</class>
+        <class>entidades.Carrito</class>
+        <class>entidades.Categoria</class>
+        <class>entidades.Cliente</class>
+        <class>entidades.Direccion</class>
+        <class>entidades.Editorial</class>
+        <class>entidades.Libro</class>
+        <class>entidades.MetodoPago</class>
+        <class>entidades.PagoContraEntrega</class>
+        <class>entidades.PagoTarjeta</class>
+        <class>entidades.PagoTransferencia</class>
+        <class>entidades.Pedido</class>
+        <class>entidades.Producto</class>
+        <class>entidades.ProductoCarrito</class>
+        <class>entidades.ProductoPedido</class>
+        <class>entidades.Resenia</class>
+        <class>entidades.Usuario</class>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="prod"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="equipo04_ecommerce_persistencia_jar_1.0PU_Tests" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>entidades.Administrador</class>
+        <class>entidades.Autor</class>
+        <class>entidades.Carrito</class>
+        <class>entidades.Categoria</class>
+        <class>entidades.Cliente</class>
+        <class>entidades.Direccion</class>
+        <class>entidades.Editorial</class>
+        <class>entidades.Libro</class>
+        <class>entidades.MetodoPago</class>
+        <class>entidades.PagoContraEntrega</class>
+        <class>entidades.PagoTarjeta</class>
+        <class>entidades.PagoTransferencia</class>
+        <class>entidades.Pedido</class>
+        <class>entidades.Producto</class>
+        <class>entidades.ProductoCarrito</class>
+        <class>entidades.ProductoPedido</class>
+        <class>entidades.Resenia</class>
+        <class>entidades.Usuario</class>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
+        </properties>
+    </persistence-unit>
+</persistence>
